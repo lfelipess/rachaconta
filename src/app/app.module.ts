@@ -13,12 +13,12 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 const firebaseConfig ={
-  apiKey: "AIzaSyDbSyVPEtd91oSt8o3BcKq23RkGB0OA2Zk",
-  authDomain: "rachaconta-48fb9.firebaseapp.com",
-  databaseURL: "https://rachaconta-48fb9.firebaseio.com",
-  projectId: "rachaconta-48fb9",
-  storageBucket: "rachaconta-48fb9.appspot.com",
-  messagingSenderId: "937281042875"
+  apiKey: "AIzaSyCWgqXE-yiEticZmEucTN0oKcvS-x6c_Ds",
+  authDomain: "rachaconta-1865b.firebaseapp.com",
+  databaseURL: "https://rachaconta-1865b.firebaseio.com",
+  projectId: "rachaconta-1865b",
+  storageBucket: "rachaconta-1865b.appspot.com",
+  messagingSenderId: "323903877704"
 }
 
 @NgModule({
