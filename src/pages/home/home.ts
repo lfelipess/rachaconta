@@ -1,3 +1,4 @@
+import { MesaPage } from './../mesa/mesa';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, AlertController } from 'ionic-angular';
 
@@ -21,7 +22,7 @@ export class HomePage {
   }
 
   criarMesa() {
-    //this.navCtrl.setRoot(MesaPage);
+    this.navCtrl.setRoot(MesaPage);
   }
 
 }

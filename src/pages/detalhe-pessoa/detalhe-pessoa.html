@@ -1,0 +1,56 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Detalhamento</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-item class="nome">
+    <h1>Nome do Integrante</h1>
+    <p>Mesa 1</p>
+  </ion-item>
+    <ion-row responsive-sm padding class="nome">
+      <ion-col>
+        <h4>Produtos Consumidos</h4>
+      </ion-col>
+      <ion-col>
+        <h4>Preço</h4>
+      </ion-col>
+    </ion-row>
+    <ion-row responsive-sm class="nome">
+        <ion-col>
+          <p>Produto 1</p>
+        </ion-col>
+        <ion-col>
+          <p>R$12,25</p>
+        </ion-col>
+      </ion-row>
+      <ion-row responsive-sm class="nome">
+          <ion-col>
+            <p>Produto 3</p>
+          </ion-col>
+          <ion-col>
+            <p>R$3,75</p>
+          </ion-col>
+        </ion-row>
+        <ion-row padding class="nome">
+            <ion-col>
+            <h4>Total</h4>
+          </ion-col>
+        <ion-col>
+          <h4>R$16,00</h4>
+        </ion-col>
+      </ion-row>
+
+      <button ion-button color="primary" (click)="erroFinalizar()" block>
+        Adicionar produto individual
+      </button>
+          <button ion-button color="danger" (click)="erroFinalizar()" block>
+            Encerrar conta individual
+          </button>
+
+</ion-content>

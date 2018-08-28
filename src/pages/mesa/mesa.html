@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-row responsive-sm>
+        <ion-col>
+            <ion-title>Mesa XXXXX</ion-title>
+        </ion-col>
+      </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item-sliding>
+      <button ion-item (click)="detalhePessoa()">
+          <ion-row responsive-sm>
+              <ion-col>
+                <h2>Luiz</h2>
+              </ion-col>
+              <ion-col>
+                <h3>R$ 10,00</h3>
+              </ion-col>
+              </ion-row>
+      </button>
+      <ion-item-options side="right">
+        <button ion-button color="secondary">
+          <ion-icon name="create"></ion-icon>
+        </button>
+        <button ion-button color="danger" (click)="removePessoa()">
+          <ion-icon name="trash"></ion-icon>
+        </button>
+      </ion-item-options>
+    </ion-item-sliding>
+</ion-list>
+
+<ion-fab right bottom>
+  <button ion-fab (click)="addPessoa()" color="primary"><ion-icon name="add"></ion-icon></button>
+</ion-fab>
+
+</ion-content>

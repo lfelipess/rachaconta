@@ -1,3 +1,4 @@
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -5,6 +6,8 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
+import { MesaPage } from '../pages/mesa/mesa';
+import { DetalhePessoaPage } from './../pages/detalhe-pessoa/detalhe-pessoa';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -25,7 +28,9 @@ const firebaseConfig ={
   declarations: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    MesaPage,
+    DetalhePessoaPage
   ],
   imports: [
     BrowserModule,
@@ -37,7 +42,9 @@ const firebaseConfig ={
   entryComponents: [
     MyApp,
     HomePage,
-    LoginPage
+    LoginPage,
+    MesaPage,
+    DetalhePessoaPage
   ],
   providers: [
     StatusBar,
