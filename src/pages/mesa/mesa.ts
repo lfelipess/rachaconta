@@ -9,16 +9,25 @@ import { Pessoa } from '../../models/pessoa';
   templateUrl: 'mesa.html',
 })
 export class MesaPage {
-
+mesa: any
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.mesa = "integrantes";
   }
 
   addPessoa(){
 
   }
 
+  addProdAll(){
+
+  }
+
   removePessoa(){
 
+  }
+
+  encerrarMesa(){
+    
   }
 
   detalhePessoa(){

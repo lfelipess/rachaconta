@@ -11,32 +11,119 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
-  <ion-list>
-    <ion-item-sliding>
-      <button ion-item (click)="detalhePessoa()">
+<ion-content class="outer-content speaker-list">
+  <div padding>
+    <ion-segment [(ngModel)]="mesa">
+      <ion-segment-button value="integrantes" icon-left>
+        <ion-icon name="person"></ion-icon>
+        Integrantes
+      </ion-segment-button>
+
+      <ion-segment-button value="produtos" icon-left>
+          <ion-icon name="beer"></ion-icon>
+          Produtos
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="mesa">
+    <!-- Aba de produtos -->
+    <ion-list *ngSwitchCase="'produtos'">
+      <ion-item-sliding> <!--*ngFor="let produto of produtos | async"-->
+        <button ion-item>
+            <ion-row responsive-sm>
+                <ion-col>
+                  <h2>Luiz</h2>
+                </ion-col>
+                <ion-col>
+                    <h3>R$ 15,00</h3>
+                  </ion-col>
+                  </ion-row>
+        </button>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Aba de integrantes -->
+    <ion-list *ngSwitchCase="'integrantes'">
+      <ion-item-sliding (click)="detalhePessoa()"> <!--*ngFor="let pessoa of pessoas | async"-->
+
+        <button ion-item>
           <ion-row responsive-sm>
               <ion-col>
                 <h2>Luiz</h2>
               </ion-col>
               <ion-col>
-                <h3>R$ 10,00</h3>
-              </ion-col>
-              </ion-row>
+                  <h3>R$ 10,00</h3>
+                </ion-col>
+                </ion-row>
       </button>
-      <ion-item-options side="right">
-        <button ion-button color="secondary">
-          <ion-icon name="create"></ion-icon>
-        </button>
-        <button ion-button color="danger" (click)="removePessoa()">
-          <ion-icon name="trash"></ion-icon>
-        </button>
-      </ion-item-options>
-    </ion-item-sliding>
-</ion-list>
 
-<ion-fab right bottom>
-  <button ion-fab (click)="addPessoa()" color="primary"><ion-icon name="add"></ion-icon></button>
-</ion-fab>
+        <ion-item-options side="right">
+          <button ion-button color="secondary">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
 
+      </ion-item-sliding>
+    </ion-list>
+    
+    <ion-fab *ngSwitchCase="'produtos'" bottom right>
+        <button ion-fab color="primary">
+            <ion-icon name="add"></ion-icon>
+          </button>
+          <ion-fab-list side="top">
+          <button ion-fab [style.background-color]="color" (click)="addPessoa()">
+              <ion-icon name="person"></ion-icon>
+              <div class="label">Integrantes</div>
+          </button>
+    
+          <button ion-fab [style.background-color]="color" (click)="addProdAll()">
+            <ion-icon name="beer"></ion-icon>
+            <div  class="label"dir="rtl">Produtos</div>
+          </button>
+        </ion-fab-list>
+        </ion-fab>
+
+    <ion-fab *ngSwitchCase="'integrantes'" bottom right>
+      <button ion-fab color="primary">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="top">
+      <button ion-fab [style.background-color]="color" (click)="addPessoa()">
+          <ion-icon name="person"></ion-icon>
+          <div class="label">Integrantes</div>
+      </button>
+
+      <button ion-fab [style.background-color]="color" (click)="addProdAll()">
+        <ion-icon name="beer"></ion-icon>
+        <div  class="label"dir="rtl">Produtos</div>
+      </button>
+    </ion-fab-list>
+    </ion-fab>
+  
+
+    <ion-fab *ngSwitchCase="'produtos'" bottom left>
+      <button ion-fab color="danger" (click)="encerrarMesa()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    
+    </ion-fab>
+
+    <ion-fab *ngSwitchCase="'integrantes'" bottom left>
+      <button ion-fab color="danger" (click)="encerrarMesa()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
 </ion-content>

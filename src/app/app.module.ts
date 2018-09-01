@@ -1,4 +1,3 @@
-
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -8,6 +7,9 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
 import { MesaPage } from '../pages/mesa/mesa';
 import { DetalhePessoaPage } from './../pages/detalhe-pessoa/detalhe-pessoa';
+import { AddProdIndivPage } from './../pages/add-prod-indiv/add-prod-indiv';
+import { AddProdPage } from './../pages/add-prod/add-prod';
+import { AddPessoaPage } from '../pages/add-pessoa/add-pessoa';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -30,7 +32,10 @@ const firebaseConfig ={
     HomePage,
     LoginPage,
     MesaPage,
-    DetalhePessoaPage
+    DetalhePessoaPage,
+    AddProdPage,
+    AddProdIndivPage,
+    AddPessoaPage
   ],
   imports: [
     BrowserModule,
@@ -44,7 +49,10 @@ const firebaseConfig ={
     HomePage,
     LoginPage,
     MesaPage,
-    DetalhePessoaPage
+    DetalhePessoaPage,
+    AddProdPage,
+    AddProdIndivPage,
+    AddPessoaPage
   ],
   providers: [
     StatusBar,
