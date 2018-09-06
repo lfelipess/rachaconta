@@ -10,6 +10,7 @@ import { DetalhePessoaPage } from './../pages/detalhe-pessoa/detalhe-pessoa';
 import { AddProdIndivPage } from './../pages/add-prod-indiv/add-prod-indiv';
 import { AddProdPage } from './../pages/add-prod/add-prod';
 import { AddPessoaPage } from '../pages/add-pessoa/add-pessoa';
+import { AdicionaisPage } from './../pages/adicionais/adicionais';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -35,7 +36,8 @@ const firebaseConfig ={
     DetalhePessoaPage,
     AddProdPage,
     AddProdIndivPage,
-    AddPessoaPage
+    AddPessoaPage,
+    AdicionaisPage
   ],
   imports: [
     BrowserModule,
@@ -52,7 +54,8 @@ const firebaseConfig ={
     DetalhePessoaPage,
     AddProdPage,
     AddProdIndivPage,
-    AddPessoaPage
+    AddPessoaPage,
+    AdicionaisPage
   ],
   providers: [
     StatusBar,
