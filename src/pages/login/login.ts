@@ -6,6 +6,8 @@ import { AngularFireAuth } from "angularfire2/auth";
 import { HomePage } from './../home/home';
 
 import { Usuario } from './../../models/usuario';
+import { SignupPage } from '../signup/signup';
+import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
 
 
 @IonicPage()
@@ -23,7 +25,7 @@ export class LoginPage {
   messageSenha = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
-  private toast: ToastController, formBuilder: FormBuilder) {
+  private toast: ToastController, formBuilder: FormBuilder,private usuarioProvide:UsuarioProvider) {
     this.loginForm = formBuilder.group({
     email: ['', Validators.required],
     senha: ['', Validators.required],
@@ -56,8 +58,11 @@ export class LoginPage {
 
   login(usuario: Usuario){
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(usuario.email, usuario.senha)
-    .then(() => {
-      this.navCtrl.setRoot(HomePage);
+    .then((usuario) => {
+      this.usuarioProvide.getUsuario(usuario.user.uid).subscribe( u=>{
+        this.navCtrl.setRoot(HomePage,{usuarioLogado:u});
+      } )
+      
     })
     .catch((error: any) => {
       let toast = this.toast.create({ duration: 3000, position: 'bottom' });
@@ -72,6 +77,10 @@ export class LoginPage {
       }
       toast.present();
     });
+  }
+
+  cadastrar(){
+    this.navCtrl.setRoot(SignupPage);
   }
 
 }

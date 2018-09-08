@@ -1,4 +1,8 @@
 export class Usuario {
-    email: string;
-    senha: string;
+    id:string;
+    nome:string;
+    dataNascimento:string;
+    sexo:string;
+    email:string;
+    senha:string;
 }

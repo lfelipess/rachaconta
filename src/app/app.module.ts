@@ -17,6 +17,12 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { MesaProvider } from '../providers/mesa-provider/mesa-provider';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { SignupPage } from '../pages/signup/signup';
+import { UsuarioProvider } from '../providers/usuario-provider/usuario-provider';
+
+
 
 const firebaseConfig ={
   apiKey: "AIzaSyCWgqXE-yiEticZmEucTN0oKcvS-x6c_Ds",
@@ -37,13 +43,15 @@ const firebaseConfig ={
     AddProdPage,
     AddProdIndivPage,
     AddPessoaPage,
-    AdicionaisPage
+    AdicionaisPage,
+    SignupPage
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -55,12 +63,15 @@ const firebaseConfig ={
     AddProdPage,
     AddProdIndivPage,
     AddPessoaPage,
-    AdicionaisPage
+    AdicionaisPage,
+    SignupPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    MesaProvider,
+    UsuarioProvider
   ]
 })
 export class AppModule {}
