@@ -41,7 +41,7 @@
                   </ion-row>
         </button>
         <ion-item-options side="right">
-          <button ion-button color="secondary">
+         <button ion-button color="secondary" (click)="editProd()">
             <ion-icon name="create"></ion-icon>
           </button>
           <button ion-button color="danger">
@@ -67,9 +67,9 @@
         </button>
 
         <ion-item-options side="right">
-          <button ion-button color="secondary">
+          <!--<button ion-button color="secondary">
             <ion-icon name="create"></ion-icon>
-          </button>
+          </button>-->
           <button ion-button color="danger">
             <ion-icon name="trash"></ion-icon>
           </button>
@@ -83,10 +83,10 @@
             <ion-icon name="add"></ion-icon>
           </button>
           <ion-fab-list side="top">
-          <button ion-fab [style.background-color]="color" (click)="addPessoa()">
+         <!-- <button ion-fab [style.background-color]="color" (click)="addPessoa()">
               <ion-icon name="person"></ion-icon>
               <div class="label">Integrantes</div>
-          </button>
+          </button>-->
     
           <button ion-fab [style.background-color]="color" (click)="addProdAll()">
             <ion-icon name="beer"></ion-icon>
@@ -100,10 +100,10 @@
         <ion-icon name="add"></ion-icon>
       </button>
       <ion-fab-list side="top">
-      <button ion-fab [style.background-color]="color" (click)="addPessoa()">
+      <!--<button ion-fab [style.background-color]="color" (click)="addPessoa()">
           <ion-icon name="person"></ion-icon>
           <div class="label">Integrantes</div>
-      </button>
+      </button>-->
 
       <button ion-fab [style.background-color]="color" (click)="addProdAll()">
         <ion-icon name="beer"></ion-icon>

@@ -17,10 +17,13 @@ mesa: any
     this.mesa = "integrantes";
   }
 
-  addPessoa(){
+  /*addPessoa(){
     this.navCtrl.push(AddPessoaPage);
-  }
+  }*/
 
+  editProd(){
+    this.navCtrl.push(AddProdPage);
+  }
   addProdAll(){
     this.navCtrl.push(AddProdPage);
   }
