@@ -5,6 +5,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Pessoa } from '../../models/pessoa';
 import { AdicionaisPage } from '../adicionais/adicionais';
+import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
+import { AngularFireList, AngularFireObject } from 'angularfire2/database';
+import { Mesa } from '../../models/mesa';
 
 @IonicPage()
 @Component({
@@ -12,9 +15,19 @@ import { AdicionaisPage } from '../adicionais/adicionais';
   templateUrl: 'mesa.html',
 })
 export class MesaPage {
-mesa: any
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController) {
+  mesa: any
+  mesaKey:string;
+  integrantes:Array<any>;
+
+
+
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,private mesaProvider:MesaProvider) {
     this.mesa = "integrantes";
+    this.mesaKey = this.navParams.data.mesaKey;
+    this.mesaProvider.consultarMesa(this.mesaKey).subscribe( r=>{
+      this.integrantes = r.integrantes;
+    })
+
   }
 
   /*addPessoa(){

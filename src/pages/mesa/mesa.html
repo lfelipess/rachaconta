@@ -5,7 +5,7 @@
     </button>
     <ion-row responsive-sm>
         <ion-col>
-            <ion-title>Mesa XXXXX</ion-title>
+            <ion-title>Código:{{ mesaKey }}</ion-title>
         </ion-col>
       </ion-row>
   </ion-navbar>
@@ -56,14 +56,14 @@
       <ion-item-sliding (click)="detalhePessoa()"> <!--*ngFor="let pessoa of pessoas | async"-->
 
         <button ion-item>
-          <ion-row responsive-sm>
-              <ion-col>
-                <h2>Luiz</h2>
-              </ion-col>
-              <ion-col>
-                  <h3>R$ 10,00</h3>
+            <ion-row *ngFor="let i of integrantes" responsive-sm>
+                <ion-col>
+                  <h2>{{i.nome}}</h2>
                 </ion-col>
-                </ion-row>
+                <ion-col>
+                    <h3>R$: {{i.total}}</h3>
+                  </ion-col>
+                  </ion-row>
         </button>
 
         <ion-item-options side="right">
