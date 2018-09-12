@@ -15,16 +15,31 @@ import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provid
 export class HomePage {
 
   usuarioLogado;
+  nome: String;
+  sexo: String;
 
   constructor(public navCtrl: NavController,public navParams: NavParams, public alertCtrl: AlertController,private mesaProvider:MesaProvider
   ,private afAuth: AngularFireAuth,private usuarioProvider:UsuarioProvider) {
     if(this.navParams.data.usuarioLogado){
       this.usuarioLogado = this.navParams.data.usuarioLogado;
+      this.nomeInicio();
     }else{
       this.usuarioProvider.getUsuario(this.afAuth.auth.currentUser.uid).subscribe( usuario =>{
         this.usuarioLogado = usuario;
+        this.nomeInicio();        
       })
     }   
+  }
+
+  nomeInicio(){
+    this.nome = this.usuarioLogado.nome;
+    if(this.usuarioLogado.sexo == "M"){
+      this.sexo = "o";
+    }else if(this.usuarioLogado.sexo == "F"){
+      this.sexo = "a";
+    }else{
+      this.sexo = "o";
+    }
   }
 
   entrarMesa() {

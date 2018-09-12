@@ -16,7 +16,12 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class DetalhePessoaPage {
 
+  integrante;
+  nome: String;
+
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+    this.integrante = this.navParams.data.integrante;
+    this.nome = this.integrante.nome;
   }
 
   addProdIndiv(){

@@ -1,3 +1,4 @@
+import { MesaProvider } from './../../providers/mesa-provider/mesa-provider';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
@@ -15,11 +16,14 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class AddProdPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
-  }
+  chave
+  integrantes:Array<any>;
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad AddProdPage');
+  constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider) {
+    this.chave = this.navParams.data.chave;
+    this.mesaProvider.consultarMesa(this.chave).subscribe( r=>{
+      this.integrantes = r.integrantes;
+  })
   }
 
 }

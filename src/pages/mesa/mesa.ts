@@ -7,7 +7,6 @@ import { Pessoa } from '../../models/pessoa';
 import { AdicionaisPage } from '../adicionais/adicionais';
 import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { AngularFireList, AngularFireObject } from 'angularfire2/database';
-import { Mesa } from '../../models/mesa';
 
 @IonicPage()
 @Component({
@@ -21,7 +20,8 @@ export class MesaPage {
 
 
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController,private mesaProvider:MesaProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
+    ,private mesaProvider:MesaProvider) {
     this.mesa = "integrantes";
     this.mesaKey = this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaKey).subscribe( r=>{
@@ -38,7 +38,8 @@ export class MesaPage {
     this.navCtrl.push(AddProdPage);
   }
   addProdAll(){
-    this.navCtrl.push(AddProdPage);
+    let chave = this.navParams.data.mesaKey;
+    this.navCtrl.push(AddProdPage,{chave});
   }
 
   removePessoa(){
@@ -67,8 +68,8 @@ export class MesaPage {
     confirm.present();
   }
 
-  detalhePessoa(){
-    this.navCtrl.push(DetalhePessoaPage);
+  detalhePessoa(integrante: any){
+    this.navCtrl.push(DetalhePessoaPage,{integrante});
   }
 
 }

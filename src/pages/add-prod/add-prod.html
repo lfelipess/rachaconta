@@ -19,12 +19,10 @@
     <div padding>
       <h3>Selecione os integrantes que irá consumir o produto!</h3>
       <ion-list>
-        <ion-item-sliding>
-          <ion-item>
-            <ion-label>Pessoa 1</ion-label>
+          <ion-item *ngFor="let i of integrantes">
+            <ion-label>{{i.nome}}</ion-label>
             <ion-checkbox color="blue" checked="false"></ion-checkbox>
           </ion-item>
-        </ion-item-sliding>
       </ion-list>
     </div>
 

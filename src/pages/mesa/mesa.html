@@ -53,17 +53,16 @@
 
     <!-- Aba de integrantes -->
     <ion-list *ngSwitchCase="'integrantes'">
-      <ion-item-sliding (click)="detalhePessoa()"> <!--*ngFor="let pessoa of pessoas | async"-->
-
-        <button ion-item>
-            <ion-row *ngFor="let i of integrantes" responsive-sm>
-                <ion-col>
-                  <h2>{{i.nome}}</h2>
-                </ion-col>
-                <ion-col>
-                    <h3>R$: {{i.total}}</h3>
-                  </ion-col>
-                  </ion-row>
+      <ion-item-sliding *ngFor="let i of integrantes" responsive-sm>
+        <button ion-item (click)="detalhePessoa(i)">
+            <ion-row >
+              <ion-col>
+                <h2>{{i.nome}}</h2>
+              </ion-col>
+              <ion-col>
+                <h3>R$: {{i.total}}</h3>
+              </ion-col>
+            </ion-row>
         </button>
 
         <ion-item-options side="right">
