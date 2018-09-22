@@ -64,7 +64,6 @@
               </ion-col>
             </ion-row>
         </button>
-
         <ion-item-options side="right">
           <!--<button ion-button color="secondary">
             <ion-icon name="create"></ion-icon>
@@ -76,6 +75,8 @@
         <hr/>
       </ion-item-sliding>
     </ion-list>
+
+    <!--Botões add/finalizar - aba produtos-->
     
     <ion-fab *ngSwitchCase="'produtos'" bottom right>
         <button ion-fab color="primary">
@@ -94,6 +95,14 @@
         </ion-fab-list>
         </ion-fab>
 
+        <ion-fab *ngSwitchCase="'produtos'" bottom left>
+          <button ion-fab color="danger" (click)="encerrarMesa()">
+            <ion-icon name="md-log-out"></ion-icon>
+          </button>
+        </ion-fab>
+
+    <!--Botões add/finalizar - aba integrantes-->    
+
     <ion-fab *ngSwitchCase="'integrantes'" bottom right>
       <button ion-fab color="primary">
         <ion-icon name="add"></ion-icon>
@@ -109,14 +118,6 @@
         <div  class="label"dir="rtl">Produtos</div>
       </button>
     </ion-fab-list>
-    </ion-fab>
-  
-
-    <ion-fab *ngSwitchCase="'produtos'" bottom left>
-      <button ion-fab color="danger" (click)="encerrarMesa()">
-        <ion-icon name="md-log-out"></ion-icon>
-      </button>
-    
     </ion-fab>
 
     <ion-fab *ngSwitchCase="'integrantes'" bottom left>

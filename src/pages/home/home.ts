@@ -1,6 +1,6 @@
 import { MesaPage } from './../mesa/mesa';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, AlertController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, AlertController, NavParams, ToastController } from 'ionic-angular';
 import { Usuario } from '../../models/usuario';
 import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { Mesa } from '../../models/mesa';
@@ -19,7 +19,7 @@ export class HomePage {
   sexo: String;
 
   constructor(public navCtrl: NavController,public navParams: NavParams, public alertCtrl: AlertController,private mesaProvider:MesaProvider
-  ,private afAuth: AngularFireAuth,private usuarioProvider:UsuarioProvider) {
+  ,private afAuth: AngularFireAuth,private usuarioProvider:UsuarioProvider, private toast:ToastController) {
     if(this.navParams.data.usuarioLogado){
       this.usuarioLogado = this.navParams.data.usuarioLogado;
       this.nomeInicio();
@@ -49,7 +49,7 @@ export class HomePage {
         inputs: [
           {
             name: 'codigoMesa',
-            placeholder: 'Enter Here your key Code'
+            placeholder: 'Código da Mesa'
           },
         ],
         buttons: [
@@ -82,17 +82,45 @@ export class HomePage {
   }
 
   addIntegrante(key:string){
-    let mesa;
+    let mesa: any;
+    let existe: boolean;
     this.mesaProvider.consultarMesa(key).subscribe( r=>{
       mesa = r;
+      console.log(mesa);
     })
+    
     setTimeout(() => {
+      if(mesa.key != null){
+        existe = this.consultarIntegrante(mesa,this.usuarioLogado.key);
+        if(existe == false){
       mesa.integrantes.push({usuarioId:this.usuarioLogado.key,nome:this.usuarioLogado.nome,total:0})
       delete mesa.key;
       this.mesaProvider.atualizarMesa(key,mesa);
       this.navCtrl.setRoot(MesaPage,{mesaKey:key});
+        }else{
+          this.mesaProvider.atualizarMesa(key,mesa);
+          this.navCtrl.setRoot(MesaPage,{mesaKey:key});
+        }
+      }else{
+        this.toast.create({ message: 'Código da mesa não encontrado.', duration: 3000, position: 'botton'}).present();
+      }
     }, 1000);
     
   }
 
+  public consultarIntegrante(mesa:any, keyUser:string):boolean{
+
+      let retorno:boolean;
+      var  integrantes:any[];
+      integrantes = mesa.integrantes;
+      for(var i = 0; i<integrantes.length; i++){
+       if(integrantes[i].usuarioId == keyUser){
+         retorno = true;
+         i=integrantes.length;
+       } else {
+         retorno = false;
+       }
+      }
+  return retorno;
+  }
 }
