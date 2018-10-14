@@ -5,7 +5,7 @@
     </button>
     <ion-row responsive-sm>
         <ion-col>
-            <ion-title>Código:{{ mesaKey }}</ion-title>
+            <ion-title>Código:{{ mesaAtual.id }}</ion-title>
         </ion-col>
       </ion-row>
   </ion-navbar>
@@ -29,16 +29,16 @@
   <div [ngSwitch]="mesa">
     <!-- Aba de produtos -->
     <ion-list *ngSwitchCase="'produtos'">
-      <ion-item-sliding> <!--*ngFor="let produto of produtos | async"-->
+      <ion-item-sliding *ngFor="let p of produtos"> 
         <button ion-item>
             <ion-row responsive-sm>
                 <ion-col>
-                  <h2>Luiz</h2>
+                  <h2>{{ p.descricao }}</h2>
                 </ion-col>
                 <ion-col>
-                    <h3>R$ 15,00</h3>
+                    <h3>R$: {{ p.valor }}</h3>
                   </ion-col>
-                  </ion-row>
+            </ion-row>
         </button>
         <ion-item-options side="right">
          <button ion-button color="secondary" (click)="editProd()">
@@ -53,17 +53,18 @@
 
     <!-- Aba de integrantes -->
     <ion-list *ngSwitchCase="'integrantes'">
-      <ion-item-sliding *ngFor="let i of integrantes" responsive-sm>
+      <ion-item-sliding *ngFor="let i of mesaAtual.integrantes" responsive-sm>
         <button ion-item (click)="detalhePessoa(i)">
             <ion-row >
               <ion-col>
                 <h2>{{i.nome}}</h2>
               </ion-col>
               <ion-col>
-                <h3>R$: {{i.total}}</h3>
+                <h3>R$: {{i.despesa}}</h3>
               </ion-col>
             </ion-row>
         </button>
+
         <ion-item-options side="right">
           <!--<button ion-button color="secondary">
             <ion-icon name="create"></ion-icon>
@@ -75,8 +76,6 @@
         <hr/>
       </ion-item-sliding>
     </ion-list>
-
-    <!--Botões add/finalizar - aba produtos-->
     
     <ion-fab *ngSwitchCase="'produtos'" bottom right>
         <button ion-fab color="primary">
@@ -93,15 +92,7 @@
             <div  class="label"dir="rtl">Produtos</div>
           </button>
         </ion-fab-list>
-        </ion-fab>
-
-        <ion-fab *ngSwitchCase="'produtos'" bottom left>
-          <button ion-fab color="danger" (click)="encerrarMesa()">
-            <ion-icon name="md-log-out"></ion-icon>
-          </button>
-        </ion-fab>
-
-    <!--Botões add/finalizar - aba integrantes-->    
+    </ion-fab>
 
     <ion-fab *ngSwitchCase="'integrantes'" bottom right>
       <button ion-fab color="primary">
@@ -120,10 +111,20 @@
     </ion-fab-list>
     </ion-fab>
 
+    <ion-fab *ngSwitchCase="'produtos'" bottom left>
+      <button ion-fab color="danger" (click)="encerrarMesa()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    
+    </ion-fab>
+
     <ion-fab *ngSwitchCase="'integrantes'" bottom left>
       <button ion-fab color="danger" (click)="encerrarMesa()">
         <ion-icon name="md-log-out"></ion-icon>
       </button>
     </ion-fab>
+  </div>
+  <div id="total">
+    <h3>Total:R${{ total }}</h3>
   </div>
 </ion-content>

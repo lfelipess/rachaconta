@@ -21,6 +21,8 @@ import { MesaProvider } from '../providers/mesa-provider/mesa-provider';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { SignupPage } from '../pages/signup/signup';
 import { UsuarioProvider } from '../providers/usuario-provider/usuario-provider';
+import { ProdutoProvider } from '../providers/produto-provider/produto';
+
 
 
 
@@ -74,7 +76,8 @@ const firebaseConfig ={
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     MesaProvider,
-    UsuarioProvider
+    UsuarioProvider,
+    ProdutoProvider
   ]
 })
 export class AppModule {}

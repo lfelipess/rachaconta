@@ -11,22 +11,22 @@ import { DatabaseReference } from 'angularfire2/database/interfaces';
 @Injectable()
 export class UsuarioProvider {
 
-  private usuarios:DatabaseReference;
+  private usuarios;
   
   constructor(private db: AngularFireDatabase) {
    this.usuarios = this.db.database.ref("/usuario");
   }
 
   save(usuario){
-    let key = usuario.key;
-    delete usuario.key;
-    this.db.list("/usuario").update(key,usuario);
+    let id = usuario.id;
+    delete usuario.idy;
+    this.db.list("/usuario").update(id,usuario);
   }
 
-  getUsuario(key):any{
-    return this.db.object('/usuario/'+key).snapshotChanges().map( 
+  getUsuario(id):any{
+    return this.db.object('/usuario/'+id).snapshotChanges().map( 
       r=>{
-        return {key:r.key, ...r.payload.val()};
+        return {id:r.key, ...r.payload.val()};
       })
   }
 
