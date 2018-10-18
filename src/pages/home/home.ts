@@ -33,7 +33,7 @@ export class HomePage {
   }
 
   nomeInicio(){
-    this.nome = this.usuarioLogado.nome;
+    this.nome = this.usuarioLogado.nome + ' ' + this.usuarioLogado.sobrenome;
     if(this.usuarioLogado.sexo == "M"){
       this.sexo = "o";
     }else if(this.usuarioLogado.sexo == "F"){
@@ -95,6 +95,7 @@ export class HomePage {
     })
     setTimeout(() => {
       if(mesa.id){
+        if(mesa.ativa != false){
         let  existe = mesa.integrantes.filter( t =>{
          return t.id == this.usuarioLogado.id;
         })
@@ -110,6 +111,10 @@ export class HomePage {
         }else{
           this.navCtrl.setRoot(MesaPage,{mesaKey:key});
         }
+      }else{
+        this.toast.create({ message: 'Esta mesa encontra-se encerrada.', duration: 3000, position: 'botton'}).present();
+        this.entrarMesa();
+      }
       }else{
         this.toast.create({duration:2000, position:'bottom',message:'Código Invalido'}).present();
         this.entrarMesa();

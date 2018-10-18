@@ -43,20 +43,21 @@ export class SignupPage {
     
     if(this.form.value.senha == this.form.value.confirmSenha){
       if(this.form.valid){
-            this.fire.auth.createUserWithEmailAndPassword(this.form.value.email,this.form.value.senha).then((certo)=>{
-              this.form.value.id=certo.user.uid;
+            this.fire.auth.createUserWithEmailAndPassword(this.form.value.email,this.form.value.senha)
+            .then((certo) =>{
+              this.form.value.id=certo.uid;
               delete this.form.value.senha;
               delete this.form.value.confirmSenha;
-              this.usuarioProvider.save(this.form.value)
+              this.usuarioProvider.save(this.form.value);
               this.navCtrl.setRoot(LoginPage);
-            },
-            ).catch( erro =>{     
+            })
+            .catch( erro =>{     
               if (erro.code == "auth/weak-password") {
                 this.printErro('A senha deve ter no mínimo 6 Caracteres.');
               }else if(erro.code == "auth/email-already-in-use"){
                 this.printErro('E-mail já em Uso');
               }
-          })
+            });
       }else{
         this.printErro("Preencha todos os Campos com asterisco (*)");
       }
