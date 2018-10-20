@@ -1,8 +1,8 @@
+import { FinalPage } from './../final/final';
 import { AddProdPage } from './../add-prod/add-prod';
 import { DetalhePessoaPage } from './../detalhe-pessoa/detalhe-pessoa';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
-import { AdicionaisPage } from '../adicionais/adicionais';
 import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { Mesa } from '../../models/mesa';
 import { ProdutoProvider } from '../../providers/produto-provider/produto';
@@ -32,7 +32,6 @@ export class MesaPage {
     })
    this.produtoProvider.consultarProdutos(this.mesaAtual.id).subscribe( p =>{
      this.produtos = p;
-     console.log(this.produtos);
    })
   }
 
@@ -57,7 +56,7 @@ export class MesaPage {
         {
           text: 'Sim',
           handler: () => {
-            this.navCtrl.setRoot(AdicionaisPage);
+            this.navCtrl.setRoot(FinalPage,{mesaKey:this.mesaAtual.id});
           }
         },
         {

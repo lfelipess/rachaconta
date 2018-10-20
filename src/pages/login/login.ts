@@ -1,3 +1,5 @@
+import { MesaPage } from './../mesa/mesa';
+import { MesaProvider } from './../../providers/mesa-provider/mesa-provider';
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
@@ -25,7 +27,8 @@ export class LoginPage {
   messageSenha = "";
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
-  private toast: ToastController, formBuilder: FormBuilder,private usuarioProvide:UsuarioProvider) {
+  private toast: ToastController, formBuilder: FormBuilder,private usuarioProvide:UsuarioProvider,
+  private mesaProvider:MesaProvider) {
     this.loginForm = formBuilder.group({
     email: ['', Validators.required],
     senha: ['', Validators.required],
@@ -59,10 +62,12 @@ export class LoginPage {
   login(usuario: Usuario){
     this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(usuario.email, usuario.senha)
     .then((usuario) => {
-      this.usuarioProvide.getUsuario(usuario.user.uid).subscribe( u=>{
-        this.navCtrl.setRoot(HomePage,{usuarioLogado:u});
-      } )
-      
+      var retorno = this.verificaMesa(usuario);
+      if(retorno === "nok"){
+        this.usuarioProvide.getUsuario(usuario.user.uid).subscribe( u=>{
+          this.navCtrl.setRoot(HomePage,{usuarioLogado:u});
+        });
+      }
     })
     .catch((error: any) => {
       let toast = this.toast.create({ duration: 3000, position: 'bottom' });
@@ -77,10 +82,47 @@ export class LoginPage {
       }
       toast.present();
     });
+
   }
 
   cadastrar(){
     this.navCtrl.setRoot(SignupPage);
   }
 
+  verificaMesa(usuario:any): string{
+    let existe: boolean = false;
+    var retorno: string = "nok";
+    this.mesaProvider.getAllMesas().subscribe(m=>{
+      m.forEach(mesa => {
+        this.mesaProvider.consultarMesa(mesa.key).subscribe( m=>{
+          mesa = m;
+          existe = this.consultarIntegrante(mesa,usuario.user.uid);
+          if (existe == true){
+            this.navCtrl.setRoot(MesaPage,{mesaKey:mesa.id});
+            retorno = "ok";
+          }
+        })
+      })
+    })
+    return retorno;
+  }
+
+  consultarIntegrante(mesa:any, keyUser:string):boolean{
+   let retorno:boolean;
+   var  integrantes:any[];
+   if(mesa.ativa == true){
+   integrantes = mesa.integrantes;
+   for(var i = 0; i<integrantes.length; i++){
+    if(integrantes[i].id == keyUser){
+      retorno = true;
+      i=integrantes.length;
+    } else {
+      retorno = false;
+    }
+   }
+  }else{
+    retorno = false;
+  }
+return retorno;
+}
 }

@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase } from 'angularfire2/database';
-import { Mesa } from '../../models/mesa';
 
 
 
@@ -27,6 +26,15 @@ export class MesaProvider {
 
   atualizarMesa(id,mesa){
       this.db.list("/mesa").update(id,mesa);
+  }
+
+  getAllMesas(): any{
+    return this.db.list('mesa').snapshotChanges();
+      
+  }
+
+  fecharMesa(key:string){
+    this.db.object('/mesa/'+key).update({"ativa":false});
   }
   
 }

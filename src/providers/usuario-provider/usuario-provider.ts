@@ -1,6 +1,5 @@
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
-import { DatabaseReference } from 'angularfire2/database/interfaces';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -28,6 +27,10 @@ export class UsuarioProvider {
       r=>{
         return {id:r.key, ...r.payload.val()};
       })
+  }
+
+  fecharMesa(key:string){
+    this.db.object('/mesa/'+key).update({"ativa":false});
   }
 
 }

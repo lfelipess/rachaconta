@@ -1,3 +1,4 @@
+import { FinalPage } from './../pages/final/final';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -46,7 +47,8 @@ const firebaseConfig ={
     AddProdIndivPage,
     AddPessoaPage,
     AdicionaisPage,
-    SignupPage
+    SignupPage,
+    FinalPage
   ],
   imports: [
     BrowserModule,
@@ -69,7 +71,8 @@ const firebaseConfig ={
     AddProdIndivPage,
     AddPessoaPage,
     AdicionaisPage,
-    SignupPage
+    SignupPage,
+    FinalPage
   ],
   providers: [
     StatusBar,
