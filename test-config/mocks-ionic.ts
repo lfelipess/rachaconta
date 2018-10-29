@@ -1,5 +1,12 @@
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { FirebaseApp } from 'angularfire2';
+import { Observable } from 'rxjs/Observable';
+import { FirebaseAuth, User } from '@firebase/auth-types';
+import { FormBuilder } from '@angular/forms';
+import { UsuarioProvider } from '../src/providers/usuario-provider/usuario-provider';
+import { ToastController } from 'ionic-angular';
 
 export class PlatformMock {
   public ready(): Promise<string> {
@@ -76,6 +83,23 @@ export class SplashScreenMock extends SplashScreen {
   hide() {
     return;
   }
+}
+
+export class AngularFireAuthMock extends AngularFireAuth {
+  
+}
+
+export class FirebaseAppMock extends FirebaseApp {
+}
+
+export class FormBuilderMock extends FormBuilder {
+
+}
+
+export class UsuarioProviderMock extends UsuarioProvider {
+}
+
+export class ToastControllerMock extends ToastController {
 }
 
 export class NavMock {

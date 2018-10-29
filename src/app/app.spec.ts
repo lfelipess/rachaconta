@@ -25,7 +25,7 @@ const firebaseConfig = {
     messagingSenderId: "323903877704"
 }
 
-describe('MyApp Component', () => {
+describe('Inicialização do App', () => {
     let fixture;
     let component;
 
@@ -58,12 +58,11 @@ describe('MyApp Component', () => {
         component = fixture.componentInstance;
     });
 
-    it('should be created', () => {
+    it('Inicialinzar app', () => {
         expect(component instanceof MyApp).toBe(true);
     });
 
-    it('should have two pages', () => {
+    it('Menu deve conter 3 páginas', () => {
         expect(component.pages.length).toBe(3);
     });
-
 });
