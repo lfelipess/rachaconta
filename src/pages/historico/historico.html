@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>historico</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-card *ngFor="let m of mesas">
+    <ion-card-header>
+      {{ m.data }}
+    </ion-card-header>
+    <ion-card-content>
+      <div>
+        Mesa: {{ m.codigoMesa }}
+      </div>
+      <div id="despesa" >
+        Despesa: {{ filter(m) | formatCurrency }}
+      </div>
+    </ion-card-content>
+  </ion-card>
+</ion-content>

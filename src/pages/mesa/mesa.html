@@ -1,0 +1,130 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-row responsive-sm>
+        <ion-col>
+            <ion-title>Código: {{ mesaAtual.codigoMesa }}</ion-title>
+        </ion-col>
+    </ion-row>
+  </ion-navbar>
+</ion-header>
+
+<ion-content class="outer-content speaker-list">
+  <div padding>
+    <ion-segment [(ngModel)]="mesa">
+      <ion-segment-button value="integrantes" icon-left>
+        <ion-icon name="person"></ion-icon>
+        Integrantes
+      </ion-segment-button>
+
+      <ion-segment-button value="produtos" icon-left>
+          <ion-icon name="beer"></ion-icon>
+          Produtos
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div [ngSwitch]="mesa">
+    <!-- Aba de produtos -->
+    <ion-list *ngSwitchCase="'produtos'">
+      <ion-item-sliding *ngFor="let p of produtos"> 
+        <button ion-item>
+            <ion-row responsive-sm>
+                <ion-col>
+                  <h2>{{ p.descricao }}</h2>
+                </ion-col>
+                <ion-col>
+                    <h3>{{ p.valor | formatCurrency}}</h3>
+                  </ion-col>
+            </ion-row>
+        </button>
+        <ion-item-options side="right">
+         <button ion-button color="secondary" (click)="editProd()">
+            <ion-icon name="create"></ion-icon>
+          </button>
+          <button ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+      </ion-item-sliding>
+    </ion-list>
+
+    <!-- Aba de integrantes -->
+    <ion-list *ngSwitchCase="'integrantes'">
+      <ion-item-sliding *ngFor="let i of mesaAtual.integrantes" responsive-sm>
+        <button ion-item (click)="detalhePessoa(i)" >
+            <ion-row [class.desativado]=" !i.ativo ">
+              <ion-col>
+                <h2>{{ i.nome }}</h2>
+              </ion-col>
+              <ion-col>
+                <h3>{{ i.despesa | formatCurrency}}</h3>
+              </ion-col>
+            </ion-row>
+        </button>
+
+        <ion-item-options side="right">
+          <!--<button ion-button color="secondary">
+            <ion-icon name="create"></ion-icon>
+          </button>-->
+          <button ion-button color="danger">
+            <ion-icon name="trash"></ion-icon>
+          </button>
+        </ion-item-options>
+
+      </ion-item-sliding>
+    </ion-list>
+    
+    <ion-fab *ngSwitchCase="'produtos'" bottom right>
+        <button ion-fab color="primary">
+            <ion-icon name="add"></ion-icon>
+          </button>
+          <ion-fab-list side="top">
+         <!-- <button ion-fab [style.background-color]="color" (click)="addPessoa()">
+              <ion-icon name="person"></ion-icon>
+              <div class="label">Integrantes</div>
+          </button>-->
+    
+          <button ion-fab [style.background-color]="color" (click)="addProdAll()">
+            <ion-icon name="beer"></ion-icon>
+            <div  class="label"dir="rtl">Produtos</div>
+          </button>
+        </ion-fab-list>
+    </ion-fab>
+
+    <ion-fab *ngSwitchCase="'integrantes'" bottom right>
+      <button ion-fab color="primary">
+        <ion-icon name="add"></ion-icon>
+      </button>
+      <ion-fab-list side="top">
+      <!--<button ion-fab [style.background-color]="color" (click)="addPessoa()">
+          <ion-icon name="person"></ion-icon>
+          <div class="label">Integrantes</div>
+      </button>-->
+
+      <button ion-fab [style.background-color]="color" (click)="addProdAll()">
+        <ion-icon name="beer"></ion-icon>
+        <div  class="label"dir="rtl">Produtos</div>
+      </button>
+    </ion-fab-list>
+    </ion-fab>
+
+    <ion-fab *ngSwitchCase="'produtos'" bottom left>
+      <button ion-fab color="danger" (click)="encerrarMesa()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    
+    </ion-fab>
+
+    <ion-fab *ngSwitchCase="'integrantes'" bottom left>
+      <button ion-fab color="danger" (click)="encerrarMesa()">
+        <ion-icon name="md-log-out"></ion-icon>
+      </button>
+    </ion-fab>
+  </div>
+  <div id="total">
+    <h3>Total: {{ total | formatCurrency}}</h3>
+  </div>
+</ion-content>
