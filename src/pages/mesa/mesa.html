@@ -4,8 +4,15 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-row responsive-sm>
-        <ion-col>
+        <ion-col class="title">
             <ion-title>Código: {{ mesaAtual.codigoMesa }}</ion-title>
+        </ion-col>
+        <ion-col>
+          <ion-buttons end>
+          <a class="action-sheet-info info" (click)="informacoes()">
+            <ion-icon name="ios-information-circle-outline"></ion-icon>
+          </a>
+          </ion-buttons>
         </ion-col>
     </ion-row>
   </ion-navbar>
@@ -110,21 +117,5 @@
       </button>
     </ion-fab-list>
     </ion-fab>
-
-    <ion-fab *ngSwitchCase="'produtos'" bottom left>
-      <button ion-fab color="danger" (click)="encerrarMesa()">
-        <ion-icon name="md-log-out"></ion-icon>
-      </button>
-    
-    </ion-fab>
-
-    <ion-fab *ngSwitchCase="'integrantes'" bottom left>
-      <button ion-fab color="danger" (click)="encerrarMesa()">
-        <ion-icon name="md-log-out"></ion-icon>
-      </button>
-    </ion-fab>
-  </div>
-  <div id="total">
-    <h3>Total: {{ total | formatCurrency}}</h3>
   </div>
 </ion-content>

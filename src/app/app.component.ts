@@ -61,7 +61,7 @@ export class MyApp {
       }
       break;
       case ((page.title == 'Historico')):{
-        this.nav.setRoot(page.component);
+        this.emBreve();
       }
       break;
       case ((page.title == 'Sair')):{

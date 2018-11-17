@@ -24,9 +24,12 @@
 			<ion-col>
 				<button ion-button (click)="validar(usuario)" block>Entrar</button>
 			</ion-col>
-			<ion-col>
-				<button ion-button (click)="cadastrar()" color="light" block>Cadastrar</button>
-			</ion-col>
+    </ion-row>
+    <ion-row responsive-sm>
+    <ion-col id="cadastro">
+      <a (click)="cadastrar()">Não tem conta? Cadastre-se!</a>
+      <!--<button ion-button (click)="cadastrar()" color="light" block>Cadastrar</button>-->
+    </ion-col>
     </ion-row>
     </form>
 </ion-content>

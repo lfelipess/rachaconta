@@ -113,7 +113,6 @@ export class LoginPage {
         if(mesa.ativa == false){
           i++;
         }else{
-          console.log("rolou");
           this.retorno = mesa.id;
           i=m.length;
         }

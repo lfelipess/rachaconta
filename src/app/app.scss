@@ -14,3 +14,27 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.action-sheet-info {
+    .ion-md-share {
+        color: rgb(22, 119, 245);
+    }
+
+    .ion-logo-usd {
+        color: rgb(153, 253, 107);
+    }
+
+    .ion-ios-log-out{
+        color: #ED4248
+    }
+    
+  }
+
+  .action-sheet-parcial {
+    font-weight: bold;
+  }
+
+  .action-sheet-final {
+    font-weight: bold;
+    color: red;
+  }
