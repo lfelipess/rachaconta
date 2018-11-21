@@ -28,7 +28,7 @@ export class HomePage {
       this.usuarioProvider.getUsuario(this.afAuth.auth.currentUser.uid).subscribe( usuario =>{
         this.usuarioLogado = <Usuario> usuario.payload.val();
         this.usuarioLogado.id = usuario.key;
-        this.nomeInicio();        
+        this.nomeInicio();
       })
     }   
   }

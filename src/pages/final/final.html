@@ -1,7 +1,16 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Conta Final</ion-title>
+    <ion-title>
+    <ion-row>
+      <ion-col>
+          <b> Conta Final </b>
+      </ion-col>
+      <ion-col end>
+          Total: {{total | formatCurrency}}
+      </ion-col>
+      </ion-row>
+    </ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -9,26 +18,19 @@
 
 <ion-content padding>
   <ion-list>
-    <ion-item *ngFor="let i of mesaAtual.integrantes" responsive-sm>
-        <button ion-item (click)="detalhePessoa(i)">
-            <ion-row >
-              <ion-col>
-                <h2>{{i.nome}}</h2>
-              </ion-col>
-              <ion-col>
-                <h3>R$: {{i.despesa}}</h3>
-              </ion-col>
-            </ion-row>
-        </button>
-    </ion-item>
+        <ion-card *ngFor="let i of mesaAtual.integrantes"  (click)="detalhePessoa(i)" responsive-sm>
+            <ion-card-header>
+              <h1><b>{{i.nome}}</b></h1>
+            </ion-card-header>
+            <ion-card-content>
+              <h2>Despesa individual: {{i.despesa | formatCurrency}}</h2>
+            </ion-card-content>
+          </ion-card>
   </ion-list>
-  <ion-row>
-    <ion-col>
-      Total:
-    </ion-col>
-    <ion-col>
-      {{total}}
-    </ion-col>
-  </ion-row>
-  <button ion-button block bottom color="danger" (click)='fechaMesa()' >Finalizar</button>
+  <div class="rodape">
+  <button block ion-button color="danger" (click)='fechaMesa()' >Finalizar</button>
+  </div>
+  
+  
+  
 </ion-content>

@@ -1,3 +1,4 @@
+import { DetalhePessoaPage } from './../detalhe-pessoa/detalhe-pessoa';
 import { Usuario } from './../../models/usuario';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UsuarioProvider } from './../../providers/usuario-provider/usuario-provider';
@@ -26,7 +27,7 @@ export class FinalPage {
   total:number= 0;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider,
-    private produtoProvider:ProdutoProvider,private usuarioProvider:UsuarioProvider,private afAuth: AngularFireAuth) {
+    private produtoProvider:ProdutoProvider) {
     this.mesaAtual.id = this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
       this.mesaAtual = <Mesa> r.payload.val();
@@ -42,9 +43,10 @@ export class FinalPage {
 
   fechaMesa(){
   this.mesaProvider.fecharMesa(this.mesaAtual.id);
-  this.usuarioProvider.getUsuario(this.afAuth.auth.currentUser.uid).subscribe( u =>{
-    let usuarioLogado:Usuario = <Usuario> u.payload.val();
-  this.navCtrl.setRoot(HomePage,{usuarioLogado:usuarioLogado});
-  })
+  this.navCtrl.setRoot(HomePage);
+  }
+
+  detalhePessoa(integrante){
+    this.navCtrl.push(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id, comButton: false});
   }
 }

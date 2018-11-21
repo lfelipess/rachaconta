@@ -25,6 +25,7 @@ import { HomePage } from '../home/home';
 })
 export class DetalhePessoaPage {
   idUsuarioLogado: any;
+  comButton: any;
   usuario:Usuario = new Usuario();
   produtos:Array<Produto> = new Array<Produto>();
 
@@ -39,6 +40,12 @@ export class DetalhePessoaPage {
        this.produtos = this.produtos.filter( P => P.integrantes.filter( i => i.id == this.usuario.id).length > 0);
       })
     })
+    
+    if (this.usuario.id == this.idUsuarioLogado && this.navParams.data.comButton == null){
+      this.comButton = true;
+    } else {
+      this.comButton = false;
+    }
   }
 
   filter(integrantes:Array<any>){
