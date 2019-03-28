@@ -1,0 +1,75 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+    <ion-content padding>
+        <form [formGroup]="form">
+          <div>
+            <ion-row responsive-sm>
+                <ion-col>
+                  <b>Nome</b>
+                </ion-col>
+                <ion-col>
+                    <ion-input  formControlName="nome" type="text" value={{usuarioLogado.nome}}></ion-input>        
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm>
+                <ion-col>
+                  <b>Sobrenome</b>
+                </ion-col>
+                <ion-col>
+                    <ion-input  formControlName="sobrenome" type="text" value={{usuarioLogado.sobrenome}}></ion-input>        
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm>
+                <ion-col>
+                  <b>Nascimento</b>
+                </ion-col>
+                <ion-col>
+                    <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dataNascimento"  type="text"></ion-datetime>
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm>
+                <ion-col>
+                  <b>Sexo</b>
+                </ion-col>
+                <ion-col>
+                    <ion-select formControlName="sexo">
+                        <ion-option value="M">Masculino</ion-option>
+                        <ion-option value="F">Feminino</ion-option>
+                    </ion-select>
+                </ion-col>
+            </ion-row>
+
+            <ion-row responsive-sm>
+                <ion-col>
+                  <b>Email</b>
+                </ion-col>
+                <ion-col>
+                  <ion-input formControlName="email"  type="email" value={{usuarioLogado.email}}></ion-input>
+                </ion-col>
+              </ion-row>    
+          </div>  
+          <div>
+              <ion-row responsive-sm>
+                  <ion-col>
+                      <button ion-button block color="light" (click)="alterarSenha()" >Alterar Senha</button>
+                  </ion-col>
+                  <ion-col>
+                    <button ion-button block type="submit" (click)="alterar()" >Salvar</button>
+                  </ion-col>                  
+              </ion-row>
+              <button ion-button color="danger" (click)="cancelar()" block> Cancelar </button>
+            </div>
+        </form>
+</ion-content>

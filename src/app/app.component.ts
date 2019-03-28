@@ -8,6 +8,7 @@ import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
 import { SignupPage } from '../pages/signup/signup';
 import { HistoricoPage } from '../pages/historico/historico';
+import { PerfilPage } from '../pages/perfil/perfil';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,7 @@ export class MyApp {
 
     // used for an example of ngFor and navigation
     this.pages = [
-      { title: 'Perfil', component: HomePage },
+      { title: 'Perfil', component: PerfilPage },
       { title: 'Historico', component: HistoricoPage },
       { title: 'Sair', component: LoginPage }
     ];
@@ -57,7 +58,7 @@ export class MyApp {
   openPage(page) {
     switch(true){
       case ((page.title == 'Perfil')):{
-        this.emBreve();
+        this.nav.push(page.component);
       }
       break;
       case ((page.title == 'Historico')):{

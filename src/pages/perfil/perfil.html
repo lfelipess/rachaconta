@@ -1,0 +1,59 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Perfil</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <div class="logo">
+      <img src="assets/imgs/foto.png" alt="foto">
+  </div>
+
+  <ion-row class= "row1" responsive-sm>
+      <ion-col>
+        <b>Nome</b>
+      </ion-col>
+      <ion-col>
+        {{usuario.nome}} {{usuario.sobrenome}}
+      </ion-col>
+  </ion-row>
+
+  <ion-row responsive-sm>
+      <ion-col>
+        <b>Nascimento</b>
+      </ion-col>
+      <ion-col>
+        {{usuario.dataNascimento}}
+      </ion-col>
+  </ion-row>
+
+  <ion-row responsive-sm>
+      <ion-col>
+        <b>Sexo</b>
+      </ion-col>
+      <ion-col>
+        {{sexo}}
+      </ion-col>
+  </ion-row>
+
+  <ion-row responsive-sm>
+      <ion-col>
+        <b>Email</b>
+      </ion-col>
+      <ion-col>
+        {{usuario.email}}
+      </ion-col>
+  </ion-row>
+
+    <button class="fimTela" ion-button color="success" (click)="editarPerfil()" block>
+      Editar perfil
+    </button>
+
+    <button class="btn2" ion-button color="danger" block>
+      Excluir conta
+    </button>
+</ion-content>

@@ -25,6 +25,8 @@ import { ProdutoProvider } from '../providers/produto-provider/produto';
 import { FormatCurrencyPipe } from '../pipes/format-currency/format-currency';
 import { HistoricoPage } from '../pages/historico/historico';
 import { FinalPage } from '../pages/final/final';
+import { PerfilPage } from '../pages/perfil/perfil';
+import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 
 
 
@@ -54,7 +56,9 @@ const firebaseConfig ={
     SignupPage,
     FormatCurrencyPipe,
     HistoricoPage,
-    FinalPage
+    FinalPage,
+    PerfilPage,
+    EditarPerfilPage
 
   ],
   imports: [
@@ -80,7 +84,9 @@ const firebaseConfig ={
     AdicionaisPage,
     SignupPage,
     HistoricoPage,
-    FinalPage
+    FinalPage,
+    PerfilPage,
+    EditarPerfilPage
   ],
   providers: [
     StatusBar,
