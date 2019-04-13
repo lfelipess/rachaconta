@@ -8,67 +8,51 @@
 
 
 <ion-content padding>
-
-    <ion-content padding>
+  <p class="center"><b><u>Informações Pessoais</u></b></p>
         <form [formGroup]="form">
           <div>
-            <ion-row responsive-sm>
-                <ion-col>
-                  <b>Nome</b>
-                </ion-col>
-                <ion-col>
-                    <ion-input  formControlName="nome" type="text" value={{usuarioLogado.nome}}></ion-input>        
-                </ion-col>
-            </ion-row>
+              <ion-item>
+                  <ion-label>Nome</ion-label>
+                  <ion-input  formControlName="nome" type="text" value={{usuarioLogado.nome}}></ion-input>  
+              </ion-item>
 
-            <ion-row responsive-sm>
-                <ion-col>
-                  <b>Sobrenome</b>
-                </ion-col>
-                <ion-col>
-                    <ion-input  formControlName="sobrenome" type="text" value={{usuarioLogado.sobrenome}}></ion-input>        
-                </ion-col>
-            </ion-row>
+              <ion-item>
+                  <ion-label>Sobrenome</ion-label>
+                  <ion-input  formControlName="sobrenome" type="text" value={{usuarioLogado.sobrenome}}></ion-input>   
+              </ion-item>
 
-            <ion-row responsive-sm>
-                <ion-col>
-                  <b>Nascimento</b>
-                </ion-col>
-                <ion-col>
-                    <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dataNascimento"  type="text"></ion-datetime>
-                </ion-col>
-            </ion-row>
+              <ion-item>
+                  <ion-label>Nascimento</ion-label>
+                  <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dataNascimento"  type="text"></ion-datetime> 
+              </ion-item>
 
-            <ion-row responsive-sm>
-                <ion-col>
-                  <b>Sexo</b>
-                </ion-col>
-                <ion-col>
-                    <ion-select formControlName="sexo">
-                        <ion-option value="M">Masculino</ion-option>
-                        <ion-option value="F">Feminino</ion-option>
-                    </ion-select>
-                </ion-col>
-            </ion-row>
+              <ion-item>
+                  <ion-label>Sexo</ion-label>
+                  <ion-select formControlName="sexo">
+                      <ion-option value="M">Masculino</ion-option>
+                      <ion-option value="F">Feminino</ion-option>
+                  </ion-select> 
+              </ion-item>
 
-            <ion-row responsive-sm>
-                <ion-col>
-                  <b>Email</b>
-                </ion-col>
-                <ion-col>
-                  <ion-input formControlName="email"  type="email" value={{usuarioLogado.email}}></ion-input>
-                </ion-col>
-              </ion-row>    
-          </div>  
+              <ion-item>
+                  <ion-label>Email</ion-label>
+                  <ion-input formControlName="email"  type="email" value={{usuarioLogado.email}}></ion-input> 
+              </ion-item>
+          </div>
+          <p class="center"><b><u>Senhas</u></b></p>
+
+          <ion-item>
+              <ion-label>Nova Senha</ion-label>
+              <ion-input formControlName="senha"  type="password"></ion-input>  
+          </ion-item>
+
+          <ion-item>
+              <ion-label>Confirmar Senha</ion-label>
+              <ion-input formControlName="confirmSenha" type="password"></ion-input> 
+          </ion-item>
           <div>
-              <ion-row responsive-sm>
-                  <ion-col>
-                      <button ion-button block color="light" (click)="alterarSenha()" >Alterar Senha</button>
-                  </ion-col>
-                  <ion-col>
-                    <button ion-button block type="submit" (click)="alterar()" >Salvar</button>
-                  </ion-col>                  
-              </ion-row>
+              <button ion-button block type="submit" (click)="alterar()" >Salvar</button>
+
               <button ion-button color="danger" (click)="cancelar()" block> Cancelar </button>
             </div>
         </form>

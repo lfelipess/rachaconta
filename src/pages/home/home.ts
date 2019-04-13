@@ -51,7 +51,7 @@ export class HomePage {
         inputs: [
           {
             name: 'codigoMesa',
-            placeholder: 'Enter Here your key Code'
+            placeholder: 'Informe o código da mesa'
           },
         ],
         buttons: [

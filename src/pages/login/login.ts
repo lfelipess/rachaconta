@@ -63,7 +63,7 @@ export class LoginPage {
   }
 
   login(usuario: Usuario){
-    this.afAuth.auth.signInAndRetrieveDataWithEmailAndPassword(usuario.email, usuario.senha)
+    this.afAuth.auth.signInWithEmailAndPassword(usuario.email, usuario.senha)
     .then((usuario) => {
       this.usuarioProvide.getUsuario(usuario.user.uid).subscribe( u =>{
         let usuarioLogado:Usuario = <Usuario> u.payload.val();

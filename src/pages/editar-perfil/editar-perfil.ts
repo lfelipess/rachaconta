@@ -37,6 +37,8 @@ export class EditarPerfilPage {
       dataNascimento:['', Validators.required],
       sexo:['', Validators.required],
       email:['',Validators.required],
+      senha:[''],
+      confirmSenha:[''],
     })
   }
 
@@ -50,13 +52,42 @@ export class EditarPerfilPage {
       }
       if(this.form.value.email != this.usuarioLogado.email){
         this.usuarioLogado.email = this.form.value.email;
+        this.userFirebase.updateEmail(this.form.value.email).then(function() {
+          console.log("Email alterado com sucesso");
+        }).catch(function(error) {
+          console.log("Erro no processo de alteração do email: " + error);
+        });
       }
-      this.usuarioProvider.save(this.usuarioLogado);
-      this.navCtrl.pop();
     }else{
-      this.printErro("Preencha todos os Campos!");
+      this.printErro("Preencha todos os campos de informações pessoais!");
+      return;
     }
-  }
+
+    if((!this.form.value.senha && this.form.value.confirmSenha) || (this.form.value.senha && !this.form.value.confirmSenha)){
+      this.printErro("Os campos de senha devem conter valores iguais para alteração ou serem deixados em branco para não alterar!");
+      return;
+    }
+
+    if(this.form.value.senha && this.form.value.confirmSenha){
+      if(this.form.value.senha == this.form.value.confirmSenha){
+        if(this.form.value.senha.length >= 6){
+          this.userFirebase.updatePassword(this.form.value.senha).then(function() {
+            console.log("Senha alterada com sucesso");
+          }).catch(function(error) {
+            console.log("Erro no processo de alteração da senha: " + error);
+          });
+        } else {
+          this.printErro("A senha informada possui menos de 6 digitos!");
+          return;
+        }
+      } else {
+        this.printErro("Senhas diferentes!");
+        return;
+      }
+    }
+    this.usuarioProvider.save(this.usuarioLogado);
+    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-2));
+}
 
   cancelar(){
     this.navCtrl.pop();
