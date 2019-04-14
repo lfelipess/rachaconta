@@ -23,12 +23,12 @@
 
               <ion-item>
                   <ion-label>Nascimento</ion-label>
-                  <ion-datetime displayFormat="DD/MM/YYYY" formControlName="dataNascimento"  type="text"></ion-datetime> 
+                  <ion-datetime displayFormat="DD/MM/YYYY" [(ngModel)]="usuarioLogado.dataNascimento" formControlName="dataNascimento"  type="text"></ion-datetime> 
               </ion-item>
 
               <ion-item>
                   <ion-label>Sexo</ion-label>
-                  <ion-select formControlName="sexo">
+                  <ion-select formControlName="sexo" [(ngModel)]="usuarioLogado.sexo">
                       <ion-option value="M">Masculino</ion-option>
                       <ion-option value="F">Feminino</ion-option>
                   </ion-select> 
