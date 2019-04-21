@@ -1,5 +1,5 @@
 import { MesaProvider } from './../../providers/mesa-provider/mesa-provider';
-import { Component } from '@angular/core';
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
 import { Mesa } from '../../models/mesa';
 import { Produto } from '../../models/produto';
@@ -25,18 +25,37 @@ export class AddProdPage {
   produto:Produto= new Produto();
   a:string;
   b:string;
-
+  inclusao:boolean;
+  @ViewChild('checkbox') check;
   constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider
     ,private toast: ToastController,private providerProduto:ProdutoProvider,private providerMesa:MesaProvider) {
-
-    this.mesa.id = this.navParams.data.chave;
+    this.inclusao = this.navParams.data.inclusao;
+    if(!this.inclusao){
+      this.produto = this.navParams.data.produto;
+    }
+    
+    this.mesa.id = this.navParams.data.idMesa;
     this.mesaProvider.consultarMesa(this.mesa.id).subscribe( r=>{
       this.mesa = <Mesa> r.payload.val();
       this.mesa.id = r.key;
+      this.mesa.integrantes.forEach( i =>{
+        if(this.produto.integrantes.filter(ip => ip.id == i.id).length > 0){
+          i['check'] = true;
+        }else{
+          i['check'] = false;
+        }
+      })
+      console.log(this.mesa.integrantes);
     })
+
+
+   
   }
 
+  
+
   AtualizarLista(evento,integrante){
+    
     if(evento.value){
       let integranteProduto = new Integrantes();
       integranteProduto.id = integrante.id;
@@ -58,18 +77,32 @@ export class AddProdPage {
           this.produto.integrantes.forEach( p=>{
             p.despesa = valorDividido;
           })
-          this.providerProduto.adicionarProduto(this.produto);
-          this.mesa.integrantes.forEach( i =>{
-            this.produto.integrantes.forEach( ip =>{
-              if(i.id == ip.id){
-                i.despesa += ip.despesa;
-              }
-            })
+          if(this.inclusao){
+            this.providerProduto.adicionarProduto(this.produto);
+          }else{
+            this.providerProduto.atualizarProduto(this.produto.id,this.produto);
+          }
+          this.providerProduto.consultarProdutos(this.mesa.id).subscribe( p =>{
+            let produtos = <Array<Produto>> p.map( p => ({id:p.key ,...p.payload.val()}));
+            this.mesa.integrantes.forEach( inte =>{
+              inte.despesa = 0;
+            });
+            this.mesa.integrantes.forEach( i =>{
+              produtos.forEach( produto =>{
+                  produto.integrantes.forEach( ip =>{
+                  if(i.id == ip.id){
+                    i.despesa += ip.despesa;
+                  }
+                })
+              })
+            });
+            delete this.mesa.id;
+            this.providerMesa.atualizarMesa(this.produto.idMesa,this.mesa);
+            this.printMensagem("Produto Adicionado");
+            this.navCtrl.setRoot(MesaPage,{mesaKey:this.produto.idMesa});
           })
-          delete this.mesa.id;
-          this.providerMesa.atualizarMesa(this.produto.idMesa,this.mesa);
-          this.printMensagem("Produto Adicionado");
-          this.navCtrl.setRoot(MesaPage,{mesaKey:this.produto.idMesa});
+
+
        }else{
           this.printMensagem("O valor não pode ser Menor ou Igual Zero");
        }

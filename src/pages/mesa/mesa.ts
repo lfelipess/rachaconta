@@ -7,6 +7,8 @@ import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { Mesa } from '../../models/mesa';
 import { ProdutoProvider } from '../../providers/produto-provider/produto';
 import { Produto } from '../../models/produto';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { HomePage } from '../home/home';
 
 
 @IonicPage()
@@ -22,29 +24,47 @@ export class MesaPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
-    public platform: Platform) {
+    public platform: Platform,private afAuth: AngularFireAuth) {
     this.mesa = "integrantes";
     this.mesaAtual.id= this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
       this.total =0;
       this.mesaAtual = <Mesa> r.payload.val();
       this.mesaAtual.id = r.key;
+      let removido = this.mesaAtual.integrantes.filter( i => i.id == this.afAuth.auth.currentUser.uid).length == 0 ? true : false;
+      if(removido){
+        this.navCtrl.setRoot(HomePage);
+      } 
+      this.produtoProvider.consultarProdutos(this.mesaAtual.id).subscribe( produto =>{
+        this.produtos = <Array<Produto>> produto.map( p => ({id:p.key ,...p.payload.val()}));
+        this.mesaAtual.integrantes.forEach( inte =>{
+          inte.despesa = 0;
+        });
+        this.mesaAtual.integrantes.forEach( i =>{
+          this.produtos.forEach( produto =>{
+              produto.integrantes.forEach( ip =>{
+              if(i.id == ip.id){
+                i.despesa += ip.despesa;
+              }
+            })
+          })
+        });
+      })
       this.mesaAtual.integrantes.forEach( i =>{
         this.total += i.despesa;
       })
     })
-   this.produtoProvider.consultarProdutos(this.mesaAtual.id).subscribe( produto =>{
-     this.produtos = <Array<Produto>> produto.map( p => ({id:p.key ,...p.payload.val()}));
-   })
+
   }
 
 
-  editProd(){
-    this.navCtrl.push(AddProdPage);
+  editProd(produto){
+    let chave = this.navParams.data.mesaKey;
+    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:false,produto:produto});
   }
   addProdAll(){
     let chave = this.navParams.data.mesaKey;
-    this.navCtrl.push(AddProdPage,{chave});
+    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:true});
   }
 
   removePessoa(){
@@ -123,6 +143,11 @@ export class MesaPage {
     actionSheet.present();
   }
 
+  excluirIntegrante( codigo){
+    this.mesaAtual.integrantes = this.mesaAtual.integrantes.filter( i => i.id != codigo); 
+    this.mesaProvider.atualizarMesa(this.mesaAtual.id,this.mesaAtual);
+  }
+
   emBreve(){
     let alert = this.alertCtrl.create({
       title: 'Em breve!',
@@ -130,6 +155,10 @@ export class MesaPage {
       buttons: ['OK']
     });
     alert.present();
+  }
+
+  excluirProduto(produto){
+    this.produtoProvider.excluirProduto(produto.id);
   }
 
 }
