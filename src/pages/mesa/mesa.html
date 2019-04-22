@@ -48,10 +48,10 @@
             </ion-row>
         </button>
         <ion-item-options side="right">
-         <button ion-button color="secondary" (click)="editProd()">
+         <button ion-button color="secondary" (click)="editProd(p)">
             <ion-icon name="create"></ion-icon>
           </button>
-          <button ion-button color="danger">
+          <button ion-button color="danger" (click)="excluirProduto(p)">
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-item-options>
@@ -76,7 +76,7 @@
           <!--<button ion-button color="secondary">
             <ion-icon name="create"></ion-icon>
           </button>-->
-          <button ion-button color="danger">
+          <button ion-button color="danger" (click)="excluirIntegrante(i.id)">
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-item-options>

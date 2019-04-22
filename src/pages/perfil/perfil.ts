@@ -5,6 +5,8 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { Usuario } from '../../models/usuario';
 import { EditarPerfilPage } from '../editar-perfil/editar-perfil';
 import { LoginPage } from '../login/login';
+import { dateFormatPipe } from '../../pipes/date-pipe/date-pipe';
+import { DatePipe } from '@angular/common';
 
 
 @IonicPage()

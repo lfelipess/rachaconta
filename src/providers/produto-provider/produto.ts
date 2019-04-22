@@ -15,7 +15,7 @@ import { AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
 @Injectable()
 export class ProdutoProvider {
 
-  private produtos;
+  private produtos:any;
 
   constructor(private db: AngularFireDatabase) {
    this.produtos= this.db.database.ref("/produtos");
@@ -28,6 +28,14 @@ export class ProdutoProvider {
   consultarProdutos(idMesa):Observable<AngularFireAction<DatabaseSnapshot<{}>>[]>{
     return this.db.list("/produtos", ref => ref.orderByChild('idMesa').equalTo(idMesa))
     .snapshotChanges();
+  }
+
+  atualizarProduto(id,produto){
+    this.db.list("/produtos").update(id,produto);
+  }
+
+  excluirProduto(produto){
+    this.db.database.ref("/produtos/"+produto).remove();
   }
 
 }

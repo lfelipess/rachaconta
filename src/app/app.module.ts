@@ -27,6 +27,7 @@ import { HistoricoPage } from '../pages/historico/historico';
 import { FinalPage } from '../pages/final/final';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
+import { dateFormatPipe } from '../pipes/date-pipe/date-pipe';
 
 
 
@@ -58,7 +59,8 @@ const firebaseConfig ={
     HistoricoPage,
     FinalPage,
     PerfilPage,
-    EditarPerfilPage
+    EditarPerfilPage,
+    dateFormatPipe
 
   ],
   imports: [

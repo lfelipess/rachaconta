@@ -11,9 +11,10 @@ import { Observable } from 'rxjs/Observable';
 export class MesaProvider {
   
   private mesa;
+  private integrantes;
 
   constructor(private db : AngularFireDatabase) {
-    this.mesa = this.db.database.ref("/mesa");
+    this.mesa = this.db.database.ref("/mesa"); 
   }
 
   criarMesa(mesa):string{
