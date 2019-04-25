@@ -45,7 +45,6 @@ export class AddProdPage {
           i['check'] = false;
         }
       })
-      console.log(this.mesa.integrantes);
     })
 
 
@@ -79,8 +78,10 @@ export class AddProdPage {
           })
           if(this.inclusao){
             this.providerProduto.adicionarProduto(this.produto);
+            this.printMensagem("Produto Adicionado");
           }else{
             this.providerProduto.atualizarProduto(this.produto.id,this.produto);
+            this.printMensagem("Produto Atualizado");
           }
           this.providerProduto.consultarProdutos(this.mesa.id).subscribe( p =>{
             let produtos = <Array<Produto>> p.map( p => ({id:p.key ,...p.payload.val()}));
@@ -98,7 +99,6 @@ export class AddProdPage {
             });
             delete this.mesa.id;
             this.providerMesa.atualizarMesa(this.produto.idMesa,this.mesa);
-            this.printMensagem("Produto Adicionado");
             this.navCtrl.setRoot(MesaPage,{mesaKey:this.produto.idMesa});
           })
 
