@@ -73,49 +73,23 @@
         </button>
 
         <ion-item-options side="right">
-          <!--<button ion-button color="secondary">
-            <ion-icon name="create"></ion-icon>
-          </button>-->
           <button ion-button color="danger" (click)="excluirIntegrante(i.id)">
             <ion-icon name="trash"></ion-icon>
           </button>
         </ion-item-options>
-
       </ion-item-sliding>
     </ion-list>
-    
-    <ion-fab *ngSwitchCase="'produtos'" bottom right>
-        <button ion-fab color="primary">
-            <ion-icon name="add"></ion-icon>
-          </button>
-          <ion-fab-list side="top">
-         <!-- <button ion-fab [style.background-color]="color" (click)="addPessoa()">
-              <ion-icon name="person"></ion-icon>
-              <div class="label">Integrantes</div>
-          </button>-->
-    
-          <button ion-fab [style.background-color]="color" (click)="addProdAll()">
-            <ion-icon name="beer"></ion-icon>
-            <div  class="label"dir="rtl">Produtos</div>
-          </button>
-        </ion-fab-list>
-    </ion-fab>
+  </div>
 
-    <ion-fab *ngSwitchCase="'integrantes'" bottom right>
-      <button ion-fab color="primary">
+  <ion-fab bottom right>
+    <button ion-fab color="primary">
         <ion-icon name="add"></ion-icon>
       </button>
-      <ion-fab-list side="top">
-      <!--<button ion-fab [style.background-color]="color" (click)="addPessoa()">
-          <ion-icon name="person"></ion-icon>
-          <div class="label">Integrantes</div>
-      </button>-->
-
+      <ion-fab-list side="top">    
       <button ion-fab [style.background-color]="color" (click)="addProdAll()">
         <ion-icon name="beer"></ion-icon>
         <div  class="label"dir="rtl">Produtos</div>
       </button>
     </ion-fab-list>
-    </ion-fab>
-  </div>
+</ion-fab>
 </ion-content>
