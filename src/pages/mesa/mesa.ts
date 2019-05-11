@@ -117,7 +117,7 @@ export class MesaPage {
           handler: () => {
             let alert = this.alertCtrl.create({
               title: 'Conta Parcial',
-              message: 'R$'+this.total,
+              message: 'R$'+parseFloat(this.total.toFixed(2)),
               cssClass: 'alert-parcial',
               buttons: ['OK']
             });

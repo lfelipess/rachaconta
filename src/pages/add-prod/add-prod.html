@@ -8,12 +8,16 @@
   <form>
     <ion-item>
       <ion-label stacked>Nome</ion-label>
-      <ion-input [(ngModel)]="produto.descricao" name="descricao" type="text" pattern="/^[a-zA-Z\s]*$/" ></ion-input>
+      <ion-input  [(ngModel)]="produto.descricao" name="descricao" type="text" pattern="/^[a-zA-Z\s]*$/"   ></ion-input>
     </ion-item>
 
     <ion-item>
       <ion-label stacked>Preço</ion-label>
       <ion-input [(ngModel)]="produto.valor" name="valor" type="number"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label stacked>Quantidade</ion-label>
+      <ion-input type="number" name="quantidade" [(ngModel)]="produto.quantidade" ></ion-input>
     </ion-item>
 
     <div padding>
