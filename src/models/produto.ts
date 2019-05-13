@@ -6,6 +6,7 @@ export class Produto{
     valor:number;
     idMesa:string;
     integrantes:Array<Integrantes>;
+    quantidade:number;
 
     constructor(){
         this.id= null;
@@ -13,6 +14,7 @@ export class Produto{
         this.valor= null;
         this.idMesa= null;
         this.integrantes = [];
+        this.quantidade = 0;
     }
 
 }

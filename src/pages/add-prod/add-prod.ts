@@ -71,7 +71,7 @@ export class AddProdPage {
   adicionarProduto(){
      if(this.produto.integrantes.length > 0){
        if(this.produto.valor > 0){
-          let valorDividido = this.produto.valor / this.produto.integrantes.length;
+          let valorDividido = (this.produto.valor * this.produto.quantidade) / this.produto.integrantes.length;
           this.produto.idMesa = this.mesa.id;
           this.produto.integrantes.forEach( p=>{
             p.despesa = valorDividido;

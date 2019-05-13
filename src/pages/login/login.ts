@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { IonicPage, NavController, NavParams, ToastController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, ToastController, MenuController } from 'ionic-angular';
 import { AngularFireAuth } from "angularfire2/auth";
 
 import { HomePage } from './../home/home';
@@ -31,7 +31,7 @@ export class LoginPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private afAuth: AngularFireAuth,
   private toast: ToastController, formBuilder: FormBuilder,private usuarioProvide:UsuarioProvider,
-  private mesaProvider:MesaProvider) {
+  private mesaProvider:MesaProvider,private menuController:MenuController) {
     this.loginForm = formBuilder.group({
     email: ['', Validators.required],
     senha: ['', Validators.required],
@@ -121,4 +121,12 @@ export class LoginPage {
       })
       return retorno;
   }
+
+   ionViewDidEnter(){
+    this.menuController.enable(false);
+   }
+
+   ionViewWillLeave(){
+    this.menuController.enable(true);
+   }
 }
