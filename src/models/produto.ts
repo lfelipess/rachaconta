@@ -14,7 +14,7 @@ export class Produto{
         this.valor= null;
         this.idMesa= null;
         this.integrantes = [];
-        this.quantidade = 0;
+        this.quantidade = 1;
     }
 
 }

@@ -2,13 +2,14 @@ import { FinalPage } from './../final/final';
 import { AddProdPage } from './../add-prod/add-prod';
 import { DetalhePessoaPage } from './../detalhe-pessoa/detalhe-pessoa';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform } from 'ionic-angular';
+import { IonicPage, NavController, NavParams, AlertController, ActionSheetController, Platform, ToastController } from 'ionic-angular';
 import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { Mesa } from '../../models/mesa';
 import { ProdutoProvider } from '../../providers/produto-provider/produto';
 import { Produto } from '../../models/produto';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
+import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
 
 
 @IonicPage()
@@ -24,7 +25,7 @@ export class MesaPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
-    public platform: Platform,private afAuth: AngularFireAuth) {
+    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController) {
     this.mesa = "integrantes";
     this.mesaAtual.id= this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
@@ -143,9 +144,13 @@ export class MesaPage {
     actionSheet.present();
   }
 
-  excluirIntegrante( codigo){
+  excluirIntegrante(codigo){
+    if (this.afAuth.auth.currentUser.uid != codigo){
     this.mesaAtual.integrantes = this.mesaAtual.integrantes.filter( i => i.id != codigo); 
     this.mesaProvider.atualizarMesa(this.mesaAtual.id,this.mesaAtual);
+    } else {
+      this.printMensagem("Não é possível se excluir da mesa, caso deseje, por favor encerre sua conta individual.");
+    }
   }
 
   emBreve(){
@@ -159,6 +164,10 @@ export class MesaPage {
 
   excluirProduto(produto){
     this.produtoProvider.excluirProduto(produto.id);
+  }
+
+  printMensagem(mensagem){
+    this.toast.create({duration:2000, position:"bottom",message:mensagem}).present();
   }
 
 }
