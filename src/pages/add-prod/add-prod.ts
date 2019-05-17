@@ -69,49 +69,101 @@ export class AddProdPage {
   }
 
   adicionarProduto(){
-     if(this.produto.integrantes.length > 0){
-       if(this.produto.valor > 0){
-          let valorDividido = (this.produto.valor * this.produto.quantidade) / this.produto.integrantes.length;
-          this.produto.idMesa = this.mesa.id;
-          this.produto.integrantes.forEach( p=>{
-            p.despesa = valorDividido;
-          })
-          if(this.inclusao){
-            this.providerProduto.adicionarProduto(this.produto);
-            this.printMensagem("Produto Adicionado");
-          }else{
-            this.providerProduto.atualizarProduto(this.produto.id,this.produto);
-            this.printMensagem("Produto Atualizado");
-          }
-          this.providerProduto.consultarProdutos(this.mesa.id).subscribe( p =>{
-            let produtos = <Array<Produto>> p.map( p => ({id:p.key ,...p.payload.val()}));
-            this.mesa.integrantes.forEach( inte =>{
-              inte.despesa = 0;
-            });
-            this.mesa.integrantes.forEach( i =>{
-              produtos.forEach( produto =>{
-                  produto.integrantes.forEach( ip =>{
-                  if(i.id == ip.id){
-                    i.despesa += ip.despesa;
-                  }
-                })
+    if(this.verificarDesc(this.produto.descricao)){
+      if(this.verificarValor(this.produto.valor)){
+        if(this.verificarQtd(this.produto.quantidade)){  
+          if(this.produto.integrantes.length > 0){       
+              let valorDividido = (this.produto.valor * this.produto.quantidade) / this.produto.integrantes.length;
+              this.produto.idMesa = this.mesa.id;
+              this.produto.integrantes.forEach( p=>{
+                p.despesa = valorDividido;
               })
-            });
-            delete this.mesa.id;
-            this.providerMesa.atualizarMesa(this.produto.idMesa,this.mesa);
-            this.navCtrl.setRoot(MesaPage,{mesaKey:this.produto.idMesa});
-          })
+              if(this.inclusao){
+                this.providerProduto.adicionarProduto(this.produto);
+                this.printMensagem("Produto Adicionado");
+              }else{
+                this.providerProduto.atualizarProduto(this.produto.id,this.produto);
+                this.printMensagem("Produto Atualizado");
+              }
+              this.providerProduto.consultarProdutos(this.mesa.id).subscribe( p =>{
+                let produtos = <Array<Produto>> p.map( p => ({id:p.key ,...p.payload.val()}));
+                this.mesa.integrantes.forEach( inte =>{
+                  inte.despesa = 0;
+                });
+                this.mesa.integrantes.forEach( i =>{
+                  produtos.forEach( produto =>{
+                      produto.integrantes.forEach( ip =>{
+                      if(i.id == ip.id){
+                        i.despesa += ip.despesa;
+                      }
+                    })
+                  })
+                });
+                delete this.mesa.id;
+                this.providerMesa.atualizarMesa(this.produto.idMesa,this.mesa);
+                this.navCtrl.setRoot(MesaPage,{mesaKey:this.produto.idMesa});
+              })
 
 
-       }else{
-          this.printMensagem("O valor não pode ser Menor ou Igual Zero");
-       }
-     }else{
-        this.printMensagem("Selecione os Integrantes");
-     }
+          }else{
+            this.printMensagem("Selecione os Integrantes.");
+          }
+        }else {
+          this.printMensagem("O campo Quantidade não pode ser vazio ou possuir números não inteiros.");
+        }
+      }else{
+        this.printMensagem("O campo Valor não pode ser vazio, menor ou igual zero.");
+      }
+    }else{
+      this.printMensagem("O campo Nome do produto não pode ser vazio ou possuir números.");
+    }
   }
 
   printMensagem(mensagem){
     this.toast.create({duration:2000, position:"bottom",message:mensagem}).present();
+  }
+
+  verificarDesc(descricao:any){
+    if(descricao){
+      var regex = /^[A-z]+$/; 
+       if (!regex.test(descricao)) {
+        return false
+       }
+       else{
+         return true;
+       }
+    } else {
+      return false;
+    }
+  }
+
+  verificarValor(valor:any){
+    if (valor){
+      if(valor > 0){
+          return true;
+      } else {
+       return false;
+      }
+    } else {
+      return false;
+    }
+  }
+  
+  verificarQtd(qtd:any){
+    if (qtd){
+      if(qtd > 0){
+        var regex = /^[a-zA-Z0-9]+$/; 
+         if (!regex.test(qtd)) {
+         return false
+        }
+        else{
+          return true;
+        }
+      } else {
+       return false;
+      }
+    } else {
+      return false;
+    }
   }
 }
