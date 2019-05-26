@@ -105,7 +105,7 @@ export class LoginPage {
       for(i;i<m.length;) {
         mesa = (<Array<Mesa>> m.map( M => ({id: M.key, ...M.payload.val()})))[i];
         let  existe:Integrantes[] = mesa.integrantes.filter( t =>{
-        return t.id == usuario.id;
+        return t.id == usuario.id && t.ativo == true;
       })
       if(existe.length == 0){
         i++;
