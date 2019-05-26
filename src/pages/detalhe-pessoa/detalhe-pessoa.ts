@@ -1,4 +1,3 @@
-import { AddProdIndivPage } from './../add-prod-indiv/add-prod-indiv';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Usuario } from '../../models/usuario';
@@ -6,10 +5,10 @@ import { Produto } from '../../models/produto';
 import { ProdutoProvider } from '../../providers/produto-provider/produto';
 import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
 import { AngularFireAuth } from 'angularfire2/auth';
-import { formatCurrency } from '@angular/common';
 import { MesaProvider } from '../../providers/mesa-provider/mesa-provider';
 import { Mesa } from '../../models/mesa';
 import { HomePage } from '../home/home';
+import { FormatCurrencyPipe } from '../../pipes/format-currency/format-currency';
 
 /**
  * Generated class for the DetalhePessoaPage page.
@@ -28,11 +27,11 @@ export class DetalhePessoaPage {
   comButton: any;
   usuario:Usuario = new Usuario();
   produtos:Array<Produto> = new Array<Produto>();
+  formatCurrency = new FormatCurrencyPipe();;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private produtoProvider:ProdutoProvider
     ,private usuarioProvider: UsuarioProvider,private afAuth: AngularFireAuth,public alertCtrl: AlertController,private mesaProvider:MesaProvider) {
     this.usuarioProvider.getUsuario(this.navParams.data.idUsuario).subscribe( u =>{
-      this.idUsuarioLogado = this.afAuth.auth.currentUser.uid;
       this.usuario = <Usuario> u.payload.val();
       this.usuario.id = u.key;
       this.produtoProvider.consultarProdutos(navParams.data.idMesa).subscribe( p =>{
@@ -40,8 +39,10 @@ export class DetalhePessoaPage {
        this.produtos = this.produtos.filter( P => P.integrantes.filter( i => i.id == this.usuario.id).length > 0);
       })
     })
-    
-    if (this.usuario.id == this.idUsuarioLogado && this.navParams.data.comButton == null){
+
+    this.idUsuarioLogado = this.afAuth.auth.currentUser.uid;
+
+    if (this.navParams.data.idUsuario == this.idUsuarioLogado && !this.navParams.data.comButton){
       this.comButton = true;
     } else {
       this.comButton = false;
@@ -75,7 +76,7 @@ export class DetalhePessoaPage {
 
   apresentarTotal(total){
     const confirm = this.alertCtrl.create({
-      title: 'Despesa Total: R$ '+ total,
+      title: 'Despesa Total: '+ this.formatCurrency.transform(total),
       buttons: [
         {text: 'Confirmar',
           handler: () => {

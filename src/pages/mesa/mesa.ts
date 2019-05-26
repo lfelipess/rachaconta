@@ -9,7 +9,7 @@ import { ProdutoProvider } from '../../providers/produto-provider/produto';
 import { Produto } from '../../models/produto';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
-import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
+import { FormatCurrencyPipe } from '../../pipes/format-currency/format-currency';
 import { SocialSharing } from '@ionic-native/social-sharing';
 
 
@@ -23,6 +23,7 @@ export class MesaPage {
   total:number= 0;
   mesaAtual:Mesa = new Mesa();
   produtos:Array<Produto> = [];
+  formatCurrency = new FormatCurrencyPipe();
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
@@ -123,7 +124,7 @@ export class MesaPage {
           handler: () => {
             let alert = this.alertCtrl.create({
               title: 'Conta Parcial',
-              message: 'R$'+parseFloat(this.total.toFixed(2)),
+              message: this.formatCurrency.transform(this.total),
               cssClass: 'alert-parcial',
               buttons: ['OK']
             });
@@ -135,6 +136,32 @@ export class MesaPage {
           icon: !this.platform.is('ios') ? 'ios-log-out' : null,
           handler: () => {
             this.encerrarMesa();
+          }
+        },{
+          text: 'Cancelar',
+          role: 'cancel',
+          icon: !this.platform.is('ios') ? 'close' : null,
+          handler: () => {
+            console.log('Cancelado');
+          }
+        }
+      ]
+    });
+    actionSheet.present();
+  }
+
+  add(){
+    const actionSheet = this.actionSheetCtrl.create({
+      title: 'Adicionar',
+      cssClass: 'action-sheet-info',
+      buttons: [
+        {
+          text: 'Produtos',
+          role: 'destructive',
+          cssClass: 'action-sheet-parcial',
+          icon: !this.platform.is('ios') ? 'beer' : null,
+          handler: () => {
+            this.addProdAll();
           }
         },{
           text: 'Cancelar',

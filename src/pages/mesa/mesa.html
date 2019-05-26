@@ -9,6 +9,13 @@
         </ion-col>
         <ion-col>
           <ion-buttons end>
+            <a class="add" (click)="add()">
+              <ion-icon name="ios-add-circle-outline"></ion-icon>
+            </a>
+            </ion-buttons>
+        </ion-col>
+        <ion-col>
+          <ion-buttons end>
           <a class="info" (click)="informacoes()">
             <ion-icon name="ios-information-circle-outline"></ion-icon>
           </a>
@@ -84,7 +91,7 @@
     </ion-list>
   </div>
 
-  <ion-fab bottom right>
+  <!--<ion-fab bottom right>
     <button ion-fab color="primary">
         <ion-icon name="add"></ion-icon>
       </button>
@@ -94,5 +101,5 @@
         <div  class="label"dir="rtl">Produtos</div>
       </button>
     </ion-fab-list>
-</ion-fab>
+</ion-fab>-->
 </ion-content>

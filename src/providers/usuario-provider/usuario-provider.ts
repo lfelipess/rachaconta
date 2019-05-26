@@ -2,7 +2,6 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { DatabaseSnapshot, AngularFireAction } from '@angular/fire/database';
-import { Usuario } from '../../models/usuario';
 
 /*
   Generated class for the UsuarioProvider provider.
@@ -13,7 +12,7 @@ import { Usuario } from '../../models/usuario';
 @Injectable()
 export class UsuarioProvider {
 
-  private usuarios;
+  usuarios: any;
   
   constructor(private db: AngularFireDatabase) {
    this.usuarios = this.db.database.ref("/usuario");

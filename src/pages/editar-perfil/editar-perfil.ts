@@ -23,12 +23,16 @@ export class EditarPerfilPage {
   usuarioLogado : Usuario;
   userFirebase: any;
   private form: FormGroup;
+  dtNascAtual: any;
+  sexoAtual: any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private formBuilder:FormBuilder, private toast: ToastController
     ,private afAuth: AngularFireAuth, private usuarioProvider:UsuarioProvider) {
     this.usuarioLogado = this.navParams.data.usuarioLogado;
     this.userFirebase = this.afAuth.auth.currentUser;
     this.createForm();
+    this.dtNascAtual = this.usuarioLogado.dataNascimento;
+    this.sexoAtual = this.usuarioLogado.sexo;
   }
 
   createForm(){
@@ -44,12 +48,23 @@ export class EditarPerfilPage {
   }
 
   alterar(){
+    var aux:number = 0;
     if(this.form.valid){
       if(this.form.value.nome != this.usuarioLogado.nome){
         this.usuarioLogado.nome = this.form.value.nome;
+      } else{
+        aux++;
       }
       if(this.form.value.sobrenome != this.usuarioLogado.sobrenome){
         this.usuarioLogado.sobrenome = this.form.value.sobrenome;
+      } else{
+        aux++;
+      }
+      if(this.form.value.dataNascimento == this.dtNascAtual){
+        aux++
+      }
+      if(this.form.value.sexo == this.sexoAtual){
+        aux++
       }
       if(this.form.value.email != this.usuarioLogado.email){
         this.usuarioLogado.email = this.form.value.email;
@@ -58,6 +73,8 @@ export class EditarPerfilPage {
         }).catch(function(error) {
           console.log("Erro no processo de alteração do email: " + error);
         });
+      } else{
+        aux++;
       }
     }else{
       this.printErro("Preencha todos os campos de informações pessoais!");
@@ -85,10 +102,18 @@ export class EditarPerfilPage {
         this.printErro("Senhas diferentes!");
         return;
       }
+    } else{
+      aux++;
     }
-    this.usuarioProvider.save(this.usuarioLogado);
-    //this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-1));
-    this.navCtrl.setRoot(PerfilPage);
+
+    if(aux == 6){
+      this.printErro("Não há alterações no cadastro para salvar");
+      return;
+    }
+    else{
+      this.printErro("Informações salvas com sucesso!");
+      this.usuarioProvider.save(this.usuarioLogado);
+    }
 }
 
   cancelar(){
