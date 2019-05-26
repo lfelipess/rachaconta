@@ -10,6 +10,7 @@ import { Produto } from '../../models/produto';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 @IonicPage()
@@ -25,7 +26,7 @@ export class MesaPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
-    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController) {
+    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController,public socialSharing: SocialSharing) {
     this.mesa = "integrantes";
     this.mesaAtual.id= this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
@@ -61,11 +62,11 @@ export class MesaPage {
 
   editProd(produto){
     let chave = this.navParams.data.mesaKey;
-    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:false,produto:produto});
+    this.navCtrl.setRoot(AddProdPage,{idMesa:chave, inclusao:false,produto:produto});
   }
   addProdAll(){
     let chave = this.navParams.data.mesaKey;
-    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:true});
+    this.navCtrl.setRoot(AddProdPage,{idMesa:chave, inclusao:true});
   }
 
   removePessoa(){
@@ -94,7 +95,7 @@ export class MesaPage {
   }
 
   detalhePessoa(integrante){
-    this.navCtrl.push(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id});
+    this.navCtrl.setRoot(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id});
   }
 
   informacoes(){
@@ -108,7 +109,11 @@ export class MesaPage {
           cssClass: 'action-sheet-parcial',
           icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
-            this.emBreve();
+            this.socialSharing.shareViaWhatsApp("Código da Mesa RachaConta: "+this.mesaAtual.id).then(() =>{
+
+            }).catch(()=>{
+              
+            })
           }
         },{
           text: 'Conta Parcial',

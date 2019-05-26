@@ -22,4 +22,10 @@
       </div>
     </ion-card-content>
   </ion-card>
+  <ion-card *ngIf= "mesas.length <= 0">
+    <ion-card-header>
+      Você Não Possui Histórico
+    </ion-card-header>
+  </ion-card>
+
 </ion-content>

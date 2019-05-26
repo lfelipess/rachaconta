@@ -166,4 +166,8 @@ export class AddProdPage {
       return false;
     }
   }
+
+  cancelar(){
+    this.navCtrl.setRoot(MesaPage);
+  }
 }

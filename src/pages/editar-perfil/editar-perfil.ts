@@ -4,6 +4,7 @@ import { Usuario } from '../../models/usuario';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { UsuarioProvider } from '../../providers/usuario-provider/usuario-provider';
+import { PerfilPage } from '../perfil/perfil';
 
 /**
  * Generated class for the EditarPerfilPage page.
@@ -86,11 +87,12 @@ export class EditarPerfilPage {
       }
     }
     this.usuarioProvider.save(this.usuarioLogado);
-    this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-2));
+    //this.navCtrl.popTo(this.navCtrl.getByIndex(this.navCtrl.length()-1));
+    this.navCtrl.setRoot(PerfilPage);
 }
 
   cancelar(){
-    this.navCtrl.pop();
+    this.navCtrl.setRoot(PerfilPage);
   }
 
   alterarSenha(){

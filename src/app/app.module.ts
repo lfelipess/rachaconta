@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
-
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 import { LoginPage } from './../pages/login/login';
@@ -11,7 +10,7 @@ import { AddProdIndivPage } from './../pages/add-prod-indiv/add-prod-indiv';
 import { AddProdPage } from './../pages/add-prod/add-prod';
 import { AddPessoaPage } from '../pages/add-pessoa/add-pessoa';
 import { AdicionaisPage } from './../pages/adicionais/adicionais';
-
+import { SocialSharing } from '@ionic-native/social-sharing'
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -28,6 +27,7 @@ import { FinalPage } from '../pages/final/final';
 import { PerfilPage } from '../pages/perfil/perfil';
 import { EditarPerfilPage } from '../pages/editar-perfil/editar-perfil';
 import { dateFormatPipe } from '../pipes/date-pipe/date-pipe';
+
 
 
 
@@ -89,6 +89,7 @@ const firebaseConfig ={
     FinalPage,
     PerfilPage,
     EditarPerfilPage
+
   ],
   providers: [
     StatusBar,
@@ -97,6 +98,9 @@ const firebaseConfig ={
     MesaProvider,
     UsuarioProvider,
     ProdutoProvider,
+    SocialSharing
+    
+  
   ]
 })
 export class AppModule {}
