@@ -110,7 +110,7 @@ export class MesaPage {
           cssClass: 'action-sheet-parcial',
           icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
-            this.socialSharing.shareViaWhatsApp("Código da Mesa RachaConta: "+this.mesaAtual.id).then(() =>{
+            this.socialSharing.shareViaWhatsApp("Código da Mesa RachaConta: "+this.mesaAtual.codigoMesa).then(() =>{
               
             }).catch(()=>{
               
