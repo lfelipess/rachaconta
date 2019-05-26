@@ -35,7 +35,7 @@ export class PerfilPage {
   }
 
   editarPerfil(){
-    this.navCtrl.setRoot(EditarPerfilPage,{usuarioLogado:this.usuario});
+    this.navCtrl.push(EditarPerfilPage,{usuarioLogado:this.usuario});
   }
 
   excluirConta(){

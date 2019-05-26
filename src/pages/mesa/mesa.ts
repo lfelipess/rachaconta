@@ -63,11 +63,11 @@ export class MesaPage {
 
   editProd(produto){
     let chave = this.navParams.data.mesaKey;
-    this.navCtrl.setRoot(AddProdPage,{idMesa:chave, inclusao:false,produto:produto});
+    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:false,produto:produto});
   }
   addProdAll(){
     let chave = this.navParams.data.mesaKey;
-    this.navCtrl.setRoot(AddProdPage,{idMesa:chave, inclusao:true});
+    this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:true});
   }
 
   removePessoa(){

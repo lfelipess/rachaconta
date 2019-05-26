@@ -117,7 +117,7 @@ export class EditarPerfilPage {
 }
 
   cancelar(){
-    this.navCtrl.setRoot(PerfilPage);
+    this.navCtrl.pop();
   }
 
   alterarSenha(){
