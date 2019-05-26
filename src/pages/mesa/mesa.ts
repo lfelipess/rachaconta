@@ -10,7 +10,6 @@ import { Produto } from '../../models/produto';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FormatCurrencyPipe } from '../../pipes/format-currency/format-currency';
-import { SocialSharing } from '@ionic-native/social-sharing'
 
 
 @IonicPage()
@@ -27,7 +26,7 @@ export class MesaPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
-    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController,private socialSharing: SocialSharing) {
+    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController) {
     this.mesa = "integrantes";
     this.mesaAtual.id= this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
@@ -70,6 +69,10 @@ export class MesaPage {
     this.navCtrl.push(AddProdPage,{idMesa:chave, inclusao:true});
   }
 
+  removePessoa(){
+
+  }
+
   encerrarMesa(){
     let confirm = this.alertCtrl.create({
       title: 'Fechar conta',
@@ -106,7 +109,7 @@ export class MesaPage {
           cssClass: 'action-sheet-parcial',
           icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
-            this.compartilhar(this.mesaAtual.codigoMesa);
+            this.emBreve();
           }
         },{
           text: 'Conta Parcial',
@@ -192,10 +195,6 @@ export class MesaPage {
 
   printMensagem(mensagem){
     this.toast.create({duration:2000, position:"bottom",message:mensagem}).present();
-  }
-
-  compartilhar(cdMesa){
-    this.socialSharing.shareViaWhatsApp('Olá! Estou te convidando para fazer parte da minha mesa no RachaConta. O código dela é: '+cdMesa)
   }
 
 }
