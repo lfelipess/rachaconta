@@ -111,7 +111,7 @@ export class MesaPage {
           icon: !this.platform.is('ios') ? 'share' : null,
           handler: () => {
             this.socialSharing.shareViaWhatsApp("Código da Mesa RachaConta: "+this.mesaAtual.id).then(() =>{
-
+              
             }).catch(()=>{
               
             })
