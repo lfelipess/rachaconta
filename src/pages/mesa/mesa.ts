@@ -96,7 +96,7 @@ export class MesaPage {
   }
 
   detalhePessoa(integrante){
-    this.navCtrl.setRoot(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id});
+    this.navCtrl.push(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id});
   }
 
   informacoes(){
