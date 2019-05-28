@@ -44,6 +44,7 @@ export class EditarPerfilPage {
       email:['',Validators.required],
       senha:[''],
       confirmSenha:[''],
+      
     })
   }
 
