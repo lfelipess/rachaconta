@@ -69,7 +69,6 @@ export class AddProdPage {
   }
 
   adicionarProduto(){
-    if(this.verificarDesc(this.produto.descricao)){
       if(this.verificarValor(this.produto.valor)){
         if(this.verificarQtd(this.produto.quantidade)){  
           if(this.produto.integrantes.length > 0){       
@@ -114,9 +113,6 @@ export class AddProdPage {
       }else{
         this.printMensagem("O campo Valor não pode ser vazio, menor ou igual zero.");
       }
-    }else{
-      this.printMensagem("O campo Nome do produto não pode ser vazio ou possuir números.");
-    }
   }
 
   printMensagem(mensagem){
@@ -165,5 +161,9 @@ export class AddProdPage {
     } else {
       return false;
     }
+  }
+
+  cancelar(){
+    this.navCtrl.setRoot(MesaPage);
   }
 }

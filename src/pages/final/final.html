@@ -28,7 +28,8 @@
           </ion-card>
   </ion-list>
   <div class="rodape">
-  <button block ion-button color="danger" (click)='fechaMesa()' >Finalizar</button>
+  <button block ion-button  (click)='fechaMesa()' >Finalizar</button>
+  <button ion-button color="danger" *ngIf="exibirCancelar" (click)="cancelar()" block> Cancelar </button>
   </div>
   
   

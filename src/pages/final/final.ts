@@ -11,6 +11,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Mesa } from '../../models/mesa';
 import { Produto } from '../../models/produto';
+import { MesaPage } from '../mesa/mesa';
 
 
 @IonicPage()
@@ -25,10 +26,12 @@ export class FinalPage {
   //integrantes:Array<any>;
   produtos:Array<Produto> = [];
   total:number= 0;
+  exibirCancelar:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider,
     private produtoProvider:ProdutoProvider) {
     this.mesaAtual.id = this.navParams.data.mesaKey;
+    this.exibirCancelar = this.navParams.data.exibirCancelar;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
       this.mesaAtual = <Mesa> r.payload.val();
       this.mesaAtual.id = r.key;
@@ -48,5 +51,9 @@ export class FinalPage {
 
   detalhePessoa(integrante){
     this.navCtrl.push(DetalhePessoaPage,{idMesa:this.mesaAtual.id, idUsuario:integrante.id, comButton: false});
+  }
+
+  cancelar(){
+    this.navCtrl.setRoot(MesaPage,{mesaKey:this.mesaAtual.id});
   }
 }

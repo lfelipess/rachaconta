@@ -24,7 +24,7 @@ export class HistoricoPage {
   constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider,private afAuth: AngularFireAuth) {
     this.mesaProvider.consultarMesaDesativada().subscribe( mesa =>{
       this.mesas = <Array<Mesa>> mesa.map( m => ({id:m.key, ...m.payload.val()}));
-      this.mesas.filter( m =>{
+      this.mesas = this.mesas.filter( m =>{
         return m.integrantes.filter( i => i.id == this.afAuth.auth.currentUser.uid).length > 0
       })
     })
