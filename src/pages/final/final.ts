@@ -26,10 +26,12 @@ export class FinalPage {
   //integrantes:Array<any>;
   produtos:Array<Produto> = [];
   total:number= 0;
+  exibirCancelar:boolean = true;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private mesaProvider:MesaProvider,
     private produtoProvider:ProdutoProvider) {
     this.mesaAtual.id = this.navParams.data.mesaKey;
+    this.exibirCancelar = this.navParams.data.exibirCancelar;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
       this.mesaAtual = <Mesa> r.payload.val();
       this.mesaAtual.id = r.key;

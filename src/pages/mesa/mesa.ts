@@ -11,6 +11,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { HomePage } from '../home/home';
 import { FormatCurrencyPipe } from '../../pipes/format-currency/format-currency';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { AngularFireDatabase } from 'angularfire2/database';
 
 
 @IonicPage()
@@ -24,10 +25,11 @@ export class MesaPage {
   mesaAtual:Mesa = new Mesa();
   produtos:Array<Produto> = [];
   formatCurrency = new FormatCurrencyPipe();
+  ref = this.db.database.ref("/mesa");
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public alertCtrl: AlertController
     ,private mesaProvider:MesaProvider,private produtoProvider:ProdutoProvider,public actionSheetCtrl: ActionSheetController,
-    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController,public socialSharing: SocialSharing) {
+    public platform: Platform,private afAuth: AngularFireAuth, private toast: ToastController,public socialSharing: SocialSharing,private db : AngularFireDatabase) {
     this.mesa = "integrantes";
     this.mesaAtual.id= this.navParams.data.mesaKey;
     this.mesaProvider.consultarMesa(this.mesaAtual.id).subscribe( r=>{
@@ -57,7 +59,13 @@ export class MesaPage {
         this.total += i.despesa;
       })
     })
-
+    this.db.database.ref("/mesa").on('child_changed', registro =>{
+      let m : Mesa = registro.val();
+      m.id = registro.key;
+      if(!m.ativa && m.codigoMesa == this.mesaAtual.codigoMesa){
+        this.navCtrl.setRoot(FinalPage,{mesaKey:this.mesaAtual.id,exibirCancelar:false});
+      }
+    })
   }
 
 
@@ -82,7 +90,7 @@ export class MesaPage {
         {
           text: 'Sim',
           handler: () => {
-            this.navCtrl.setRoot(FinalPage,{mesaKey:this.mesaAtual.id});
+            this.navCtrl.setRoot(FinalPage,{mesaKey:this.mesaAtual.id,exibirCancelar:true});
           }
         },
         {
@@ -201,5 +209,5 @@ export class MesaPage {
   printMensagem(mensagem){
     this.toast.create({duration:2000, position:"bottom",message:mensagem}).present();
   }
-
+  
 }
